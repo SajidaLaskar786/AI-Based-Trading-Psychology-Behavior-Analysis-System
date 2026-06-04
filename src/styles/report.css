@@ -1,0 +1,485 @@
+/* ============================================
+   Report Page Styles
+   ============================================ */
+
+.report-page {
+  min-height: 100vh;
+  padding-top: 80px;
+}
+
+/* --- Report Header --- */
+.report-header {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-2xl) var(--space-xl) 0;
+  animation: fadeInUp 0.5s ease;
+}
+
+.report-header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-xl);
+}
+
+.report-header h1 {
+  font-size: var(--fs-3xl);
+}
+
+.report-header h1 .accent {
+  color: var(--clr-primary-light);
+}
+
+.report-date {
+  color: var(--clr-text-muted);
+  font-size: var(--fs-sm);
+}
+
+.report-actions-top {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+.btn-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-glass-border);
+  border-radius: var(--radius-md);
+  font-size: var(--fs-md);
+  color: var(--clr-text-secondary);
+  transition: all var(--transition-base);
+}
+
+.btn-icon:hover {
+  background: var(--clr-surface-hover);
+  color: var(--clr-text);
+  border-color: var(--clr-glass-border-hover);
+}
+
+/* --- Report Grid --- */
+.report-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-xl);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-xl);
+}
+
+/* --- Section Card --- */
+.report-section {
+  padding: var(--space-xl);
+  animation: fadeInUp 0.5s ease both;
+}
+
+.report-section:nth-child(1) { animation-delay: 0.1s; }
+.report-section:nth-child(2) { animation-delay: 0.2s; }
+.report-section:nth-child(3) { animation-delay: 0.3s; }
+.report-section:nth-child(4) { animation-delay: 0.4s; }
+.report-section:nth-child(5) { animation-delay: 0.5s; }
+
+.report-section.full-width {
+  grid-column: 1 / -1;
+}
+
+/* --- Section 1: Trader Profile --- */
+.profile-section {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xl);
+}
+
+.profile-ring-container {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.profile-ring {
+  width: 160px;
+  height: 160px;
+  position: relative;
+}
+
+.profile-ring svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.profile-ring-bg {
+  fill: none;
+  stroke: var(--clr-surface);
+  stroke-width: 8;
+}
+
+.profile-ring-fill {
+  fill: none;
+  stroke: url(#profileGradient);
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-dasharray: 440;
+  stroke-dashoffset: 440;
+  transition: stroke-dashoffset 1.5s ease;
+}
+
+.profile-ring-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-confidence-value {
+  font-family: var(--font-heading);
+  font-size: var(--fs-3xl);
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--clr-primary-light), var(--clr-accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.profile-confidence-label {
+  font-size: var(--fs-xs);
+  color: var(--clr-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.profile-info h3 {
+  font-size: var(--fs-2xl);
+  margin-bottom: var(--space-sm);
+}
+
+.profile-type-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 0.4rem 1rem;
+  background: linear-gradient(135deg, var(--clr-primary-glow), var(--clr-accent-glow));
+  border-radius: 999px;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--clr-primary-light);
+  margin-bottom: var(--space-md);
+}
+
+.profile-description {
+  color: var(--clr-text-secondary);
+  font-size: var(--fs-sm);
+  line-height: 1.7;
+}
+
+/* --- Section 2: Behavioral Risks --- */
+.risk-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  margin-top: var(--space-md);
+}
+
+.risk-item {
+  padding: var(--space-md) var(--space-lg);
+  background: var(--clr-surface);
+  border-radius: var(--radius-md);
+  border-left: 3px solid transparent;
+  transition: all var(--transition-base);
+}
+
+.risk-item:hover {
+  background: var(--clr-surface-hover);
+}
+
+.risk-item.risk-high {
+  border-left-color: var(--clr-danger);
+}
+
+.risk-item.risk-medium {
+  border-left-color: var(--clr-warning);
+}
+
+.risk-item.risk-low {
+  border-left-color: var(--clr-success);
+}
+
+.risk-item-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-sm);
+}
+
+.risk-name {
+  font-weight: 600;
+  font-size: var(--fs-base);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.risk-value {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: var(--fs-lg);
+}
+
+.risk-value.high { color: var(--clr-danger); }
+.risk-value.medium { color: var(--clr-warning); }
+.risk-value.low { color: var(--clr-success); }
+
+.risk-bar {
+  width: 100%;
+  height: 6px;
+  background: var(--clr-surface);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.risk-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  animation: progressFill 1.2s ease both;
+}
+
+.risk-bar-fill.high {
+  background: linear-gradient(90deg, var(--clr-danger), hsl(20, 85%, 55%));
+}
+
+.risk-bar-fill.medium {
+  background: linear-gradient(90deg, var(--clr-warning), hsl(45, 85%, 55%));
+}
+
+.risk-bar-fill.low {
+  background: linear-gradient(90deg, var(--clr-success), hsl(160, 70%, 55%));
+}
+
+/* --- Section 3: Feature Importance --- */
+.feature-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  margin-top: var(--space-md);
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.feature-rank {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  background: var(--clr-surface);
+  border-radius: var(--radius-full);
+  color: var(--clr-text-muted);
+  flex-shrink: 0;
+}
+
+.feature-info {
+  flex: 1;
+}
+
+.feature-label {
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.feature-bar-wrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.feature-bar {
+  flex: 1;
+  height: 6px;
+  background: var(--clr-surface);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.feature-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--clr-primary), var(--clr-accent));
+  border-radius: 3px;
+  animation: progressFill 1s ease both;
+}
+
+.feature-score {
+  font-size: var(--fs-xs);
+  color: var(--clr-text-muted);
+  font-weight: 600;
+  min-width: 36px;
+  text-align: right;
+}
+
+/* --- Section 4: Loss Analysis (Chart) --- */
+.loss-chart-container {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xl);
+  margin-top: var(--space-md);
+}
+
+.loss-chart-canvas {
+  width: 200px;
+  height: 200px;
+  flex-shrink: 0;
+}
+
+.loss-legend {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.loss-legend-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.loss-legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.loss-legend-text {
+  font-size: var(--fs-sm);
+  color: var(--clr-text-secondary);
+}
+
+.loss-legend-value {
+  font-weight: 600;
+  color: var(--clr-text);
+  margin-left: auto;
+  font-size: var(--fs-sm);
+}
+
+/* --- Section 5: Future Risks --- */
+.future-risks-container {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xl);
+  margin-top: var(--space-md);
+}
+
+.radar-chart-canvas {
+  width: 280px;
+  height: 280px;
+  flex-shrink: 0;
+}
+
+.recommendations {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  flex: 1;
+}
+
+.recommendation-card {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  background: var(--clr-surface);
+  border-radius: var(--radius-md);
+  transition: background var(--transition-base);
+}
+
+.recommendation-card:hover {
+  background: var(--clr-surface-hover);
+}
+
+.rec-icon {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-md);
+  flex-shrink: 0;
+}
+
+.rec-icon.warning {
+  background: var(--clr-warning-glow);
+}
+
+.rec-icon.danger {
+  background: var(--clr-danger-glow);
+}
+
+.rec-icon.info {
+  background: rgba(100, 150, 255, 0.15);
+}
+
+.rec-title {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.rec-text {
+  font-size: var(--fs-xs);
+  color: var(--clr-text-secondary);
+  line-height: 1.6;
+}
+
+/* --- Report Footer --- */
+.report-footer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-xl);
+  display: flex;
+  gap: var(--space-md);
+  justify-content: center;
+  animation: fadeInUp 0.5s ease 0.6s both;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .report-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-section {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .loss-chart-container,
+  .future-risks-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .loss-legend {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .report-header h1 {
+    font-size: var(--fs-2xl);
+  }
+
+  .report-section {
+    padding: var(--space-lg);
+  }
+}
