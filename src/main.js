@@ -14,6 +14,7 @@ import './styles/report.css';
 // Import pages
 import * as WelcomePage from './pages/welcome.js';
 import * as LoginPage from './pages/login.js';
+import * as SignupPage from './pages/signup.js';
 import * as DashboardPage from './pages/dashboard.js';
 import * as ReportPage from './pages/report.js';
 
@@ -21,6 +22,7 @@ import * as ReportPage from './pages/report.js';
 const routes = {
   '/': WelcomePage,
   '/login': LoginPage,
+  '/signup': SignupPage,
   '/dashboard': DashboardPage,
   '/report': ReportPage,
 };

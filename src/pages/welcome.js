@@ -119,11 +119,11 @@ export function mount() {
   });
 
   document.getElementById('navGetStartedBtn')?.addEventListener('click', () => {
-    window.location.hash = '#/login';
+    window.location.hash = '#/signup';
   });
 
   document.getElementById('heroGetStarted')?.addEventListener('click', () => {
-    window.location.hash = '#/login';
+    window.location.hash = '#/signup';
   });
 
   document.getElementById('heroDemoBtn')?.addEventListener('click', () => {

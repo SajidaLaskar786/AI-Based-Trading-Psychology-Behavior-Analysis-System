@@ -32,7 +32,7 @@ export function render() {
                 <input
                   type="email"
                   id="loginEmail"
-                  placeholder="trader@demo.com"
+                  placeholder="your@email.com"
                   required
                   autocomplete="email"
                 />
@@ -76,7 +76,8 @@ export function render() {
           </button>
 
           <div class="login-footer">
-            <p>Demo credentials: trader@demo.com / demo123</p>
+            <p>New to TradePsych AI? <a href="#/signup" style="color: var(--clr-primary-light); font-weight: 500;">Sign Up</a></p>
+            <p style="margin-top: var(--space-xs); font-size: var(--fs-xs); opacity: 0.6;">Demo credentials: trader@demo.com / demo123</p>
           </div>
         </div>
       </div>

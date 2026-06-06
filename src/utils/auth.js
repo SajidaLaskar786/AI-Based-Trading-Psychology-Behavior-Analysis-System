@@ -14,7 +14,32 @@ export function login(email, password) {
   return new Promise((resolve, reject) => {
     // Simulate network delay
     setTimeout(() => {
-      if (email === DEMO_CREDENTIALS.email && password === DEMO_CREDENTIALS.password) {
+      // 1. Check in registered users list in localStorage
+      try {
+        const users = JSON.parse(localStorage.getItem('tradepsych_users') || '[]');
+        const registeredUser = users.find(u => u.email.toLowerCase() === email.toLowerCase());
+        
+        if (registeredUser) {
+          if (registeredUser.password === password) {
+            const session = {
+              email: registeredUser.email,
+              name: registeredUser.name,
+              loggedInAt: new Date().toISOString()
+            };
+            localStorage.setItem(AUTH_KEY, JSON.stringify(session));
+            resolve(session);
+            return;
+          } else {
+            reject(new Error('Invalid email or password.'));
+            return;
+          }
+        }
+      } catch (e) {
+        console.error('Error reading registered users:', e);
+      }
+
+      // 2. Fall back to demo credentials
+      if (email.toLowerCase() === DEMO_CREDENTIALS.email.toLowerCase() && password === DEMO_CREDENTIALS.password) {
         const session = {
           email,
           name: 'Demo Trader',
@@ -23,7 +48,49 @@ export function login(email, password) {
         localStorage.setItem(AUTH_KEY, JSON.stringify(session));
         resolve(session);
       } else {
-        reject(new Error('Invalid email or password. Try: trader@demo.com / demo123'));
+        reject(new Error('Invalid email or password. Try registering a new account.'));
+      }
+    }, 1200);
+  });
+}
+
+export function register(name, email, password) {
+  return new Promise((resolve, reject) => {
+    // Simulate network delay
+    setTimeout(() => {
+      try {
+        if (!name || !email || !password) {
+          reject(new Error('All fields are required.'));
+          return;
+        }
+
+        const users = JSON.parse(localStorage.getItem('tradepsych_users') || '[]');
+        if (users.some(u => u.email.toLowerCase() === email.toLowerCase())) {
+          reject(new Error('Email is already registered.'));
+          return;
+        }
+
+        const newUser = {
+          name,
+          email: email.toLowerCase(),
+          password,
+          createdAt: new Date().toISOString()
+        };
+
+        users.push(newUser);
+        localStorage.setItem('tradepsych_users', JSON.stringify(users));
+
+        // Auto-login session creation
+        const session = {
+          email: newUser.email,
+          name: newUser.name,
+          loggedInAt: new Date().toISOString()
+        };
+        localStorage.setItem(AUTH_KEY, JSON.stringify(session));
+        resolve(session);
+      } catch (err) {
+        console.error('Registration error:', err);
+        reject(new Error('Failed to create account. Please try again.'));
       }
     }, 1200);
   });
