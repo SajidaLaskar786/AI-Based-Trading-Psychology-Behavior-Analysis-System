@@ -87,12 +87,20 @@ export function render() {
         </div>
       </section>
 
-      <!-- Footer -->
-      <footer class="welcome-footer">
-        <p>© 2025 TradePsych AI — Built for traders who want to master their psychology.</p>
-      </footer>
-    </div>
-  `;
+    <!-- Footer -->
+<footer class="welcome-footer">
+  <p>© 2025 TradePsych AI — Built for traders who want to master their psychology.</p>
+
+  <p class="team-members">
+    <strong>Team:</strong>
+    Inarat Hussain (inarat214@gmail.com) |
+    Bhanushree RN (bhanushree2603@gmail.com) |
+    Sajida Begum (sajidabegumlaskar5@gmail.com) |
+    Divya Basavaraj (divyabasavaraj54@gmail.com)
+  </p>
+</footer>
+`;
+
 }
 
 export function mount() {
