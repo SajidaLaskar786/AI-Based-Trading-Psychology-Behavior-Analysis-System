@@ -276,6 +276,26 @@ Data privacy
 Session management
 Protected API access
 
+<h3>7.6 System Integration & Core Source Files</h3>
+
+The following core files implement the end-to-end machine learning, analytical, and frontend integration pipeline:
+
+<h4>Backend Architecture & Models</h4>
+<ul>
+  <li><b><a href="routes/analysis.py">routes/analysis.py</a></b>: Exposes the primary analysis endpoint (<code>POST /api/v1/analyze</code>). Coordinates file parsing, feature engineering, model prediction, SHAP tree explainability, and report formatting. Sanitizes data against numerical anomalies before prediction.</li>
+  <li><b><a href="services/file_parser.py">services/file_parser.py</a></b>: Standardizes and normalizes brokerage P&L exports (supporting CSV/Excel files), validates columns, and derives required fields such as buy/sell timestamps, quantities, prices, and P&L.</li>
+  <li><b><a href="services/report_generator.py">services/report_generator.py</a></b>: Generates the structured behavioral reports. Integrates machine learning classification with rule-based heuristics to calculate FOMO, overtrading, revenge trading metrics, future risks, and actionable coaching advice.</li>
+  <li><b><a href="models/random_forest.pkl">models/random_forest.pkl</a></b>: Trained Random Forest model classifying traders into one of five cognitive profiles.</li>
+  <li><b><a href="models/scaler.pkl">models/scaler.pkl</a></b>: Pre-saved StandardScaler used to normalize input feature vectors before model prediction.</li>
+  <li><b><a href="MODEL_STRUCTURE.md">MODEL_STRUCTURE.md</a></b>: Detailed technical specification document explaining the 18 engineered features, models, preprocessing steps, and SHAP explanation system.</li>
+</ul>
+
+<h4>Frontend Integration</h4>
+<ul>
+  <li><b><a href="src/utils/apiClient.js">src/utils/apiClient.js</a></b>: Client-side service module that sends the raw CSV/Excel file to the FastAPI backend and maps the JSON response keys to the state schema expected by the report visualization components.</li>
+  <li><b><a href="src/pages/dashboard.js">src/pages/dashboard.js</a></b>: Replaces mock-up dashboard analysis with the live backend API call. Handles progress states, raw file tracking, and error toast alerts.</li>
+</ul>
+
 <hr>
 
 <h2>8. Results and Analysis</h2>
