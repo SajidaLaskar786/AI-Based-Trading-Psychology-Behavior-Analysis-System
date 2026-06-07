@@ -3,7 +3,7 @@
  */
 import { isLoggedIn, getUserInitials, getUserName, logout } from '../utils/auth.js';
 import { parseFile, validateColumns, formatFileSize, generateSampleData } from '../utils/fileParser.js';
-import { analyzeTrading } from '../utils/analysisEngine.js';
+import { analyzeWithAPI } from '../utils/apiClient.js';
 
 let parsedData = null;
 let columnMap = null;
@@ -160,6 +160,7 @@ async function handleFile(file) {
     const validation = validateColumns(data.headers);
 
     parsedData = data;
+    parsedData._rawFile = file;   // ← keep the original File for the API upload
     columnMap = validation.mapped;
 
     showPreview(data, file.name, file.size);
@@ -173,6 +174,7 @@ async function handleFile(file) {
     showToast(err.message, 'error');
   }
 }
+
 
 function showPreview(data, fileName, fileSize) {
   const container = document.getElementById('filePreview');
@@ -224,35 +226,62 @@ async function runAnalysis() {
   const overlay = document.getElementById('analysisLoading');
   const bar = document.getElementById('loadingBar');
   const status = document.getElementById('loadingStatus');
+  const analyzeBtn = document.getElementById('analyzeBtn');
 
   overlay.classList.add('active');
+  if (analyzeBtn) analyzeBtn.disabled = true;
 
+  // ── Animated progress steps ───────────────────────────────────────
   const steps = [
-    { text: 'Parsing trade data...', progress: 15 },
-    { text: 'Detecting behavioral patterns...', progress: 35 },
-    { text: 'Computing risk scores...', progress: 55 },
-    { text: 'Analyzing loss causes...', progress: 70 },
-    { text: 'Building trader profile...', progress: 85 },
-    { text: 'Generating report...', progress: 100 }
+    { text: 'Uploading trading data…',               progress: 15 },
+    { text: 'Extracting behavioural features…',       progress: 35 },
+    { text: 'Running ML model prediction…',           progress: 55 },
+    { text: 'Computing SHAP explanations…',           progress: 70 },
+    { text: 'Analysing loss causes…',                 progress: 85 },
+    { text: 'Building psychology report…',            progress: 95 },
   ];
 
-  for (const step of steps) {
-    status.textContent = step.text;
-    bar.style.width = step.progress + '%';
-    await new Promise(r => setTimeout(r, 500 + Math.random() * 300));
+  // Advance the progress bar while the API call runs in parallel
+  let stepIdx = 0;
+  const advanceStep = () => {
+    if (stepIdx >= steps.length) return;
+    const { text, progress } = steps[stepIdx++];
+    status.textContent = text;
+    bar.style.width = progress + '%';
+  };
+
+  advanceStep();
+  const ticker = setInterval(advanceStep, 900);
+
+  try {
+    // ── Call the FastAPI backend ────────────────────────────────────
+    const rawFile = parsedData._rawFile;
+    if (!rawFile) throw new Error('Original file reference lost. Please re-upload.');
+
+    const report = await analyzeWithAPI(rawFile);
+
+    clearInterval(ticker);
+    status.textContent = 'Report ready!';
+    bar.style.width = '100%';
+
+    // Store report for the report page
+    sessionStorage.setItem('tradepsych_report', JSON.stringify(report));
+
+    await new Promise(r => setTimeout(r, 400));
+    overlay.classList.remove('active');
+    window.location.hash = '#/report';
+
+  } catch (err) {
+    clearInterval(ticker);
+    overlay.classList.remove('active');
+    if (analyzeBtn) analyzeBtn.disabled = false;
+    showToast(
+      err.message.includes('Failed to fetch')
+        ? 'Cannot reach the backend. Make sure the server is running on http://localhost:8000'
+        : `Analysis failed: ${err.message}`,
+      'error'
+    );
   }
-
-  // Run actual analysis
-  const report = analyzeTrading(parsedData.rows, columnMap || {});
-
-  // Store report for the report page
-  sessionStorage.setItem('tradepsych_report', JSON.stringify(report));
-
-  await new Promise(r => setTimeout(r, 400));
-  overlay.classList.remove('active');
-
-  // Navigate to report
-  window.location.hash = '#/report';
 }
 
 function showToast(message, type = 'info') {
