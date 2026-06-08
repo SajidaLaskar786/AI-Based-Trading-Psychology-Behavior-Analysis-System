@@ -30,7 +30,8 @@ def generate_report(trader_index=0):
 
     # Recommendations
     recommendations = get_recommendations(
-        trader_type
+        trader_type,
+        top_features
     )
 
     print("\n" + "=" * 50)
