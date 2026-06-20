@@ -25,17 +25,17 @@ logger = logging.getLogger(__name__)
 # The parser tries all known aliases for each required field.
 
 COLUMN_ALIASES = {
-    "symbol": ["stock name", "stock_name", "symbol", "scrip", "instrument", "name", "security"],
+    "symbol": ["stock name", "stock_name", "symbol", "scrip", "instrument", "name", "security", "ticker", "stock", "asset"],
     "isin": ["isin", "isin code"],
-    "quantity": ["quantity", "qty", "trade qty", "trade_qty", "volume"],
-    "buy_date": ["buy date", "buy_date", "purchase date", "purchase_date", "entry date", "entry_date"],
-    "buy_price": ["buy price", "buy_price", "purchase price", "purchase_price", "entry price", "avg buy price"],
+    "quantity": ["quantity", "qty", "trade qty", "trade_qty", "volume", "size", "shares", "lots"],
+    "buy_date": ["buy date", "buy_date", "purchase date", "purchase_date", "entry date", "entry_date", "date", "trade_date", "tradedate", "dt"],
+    "buy_price": ["buy price", "buy_price", "purchase price", "purchase_price", "entry price", "avg buy price", "price", "open_price", "openprice"],
     "buy_value": ["buy value", "buy_value", "purchase value"],
-    "sell_date": ["sell date", "sell_date", "exit date", "exit_date"],
-    "sell_price": ["sell price", "sell_price", "exit price", "exit_price", "avg sell price"],
+    "sell_date": ["sell date", "sell_date", "exit date", "exit_date", "date", "trade_date", "tradedate", "dt"],
+    "sell_price": ["sell price", "sell_price", "exit price", "exit_price", "avg sell price", "price", "close_price", "closeprice"],
     "sell_value": ["sell value", "sell_value"],
-    "pnl": ["realised p&l", "realised_p&l", "realized p&l", "realized_p&l", "p&l", "pnl",
-            "profit/loss", "profit_loss", "net p&l", "realised p&l."],
+    "pnl": ["realised p&l", "realised_p&l", "realized p&l", "realized_p&l", "p&l", "pnl", "p/l", "pl",
+            "profit/loss", "profit_loss", "net p&l", "realised p&l.", "return", "gain/loss", "net_pnl", "realized_pnl"],
     "remark": ["remark", "remarks", "note", "notes"],
 }
 
@@ -150,6 +150,33 @@ def _normalize_columns(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
+def _clean_scalar(val) -> float:
+    """Clean scalar values of formatting characters before numeric conversion."""
+    if pd.isna(val) or val is None:
+        return 0.0
+    if isinstance(val, (int, float)):
+        return float(val)
+    val_str = str(val).strip()
+    val_str = val_str.replace("$", "").replace(",", "").strip()
+    if val_str.startswith("(") and val_str.endswith(")"):
+        val_str = "-" + val_str[1:-1]
+    try:
+        return float(val_str)
+    except ValueError:
+        return 0.0
+
+
+def _clean_series(series: pd.Series) -> pd.Series:
+    """Clean series values of formatting characters before numeric conversion."""
+    if series.dtype == object:
+        cleaned = series.fillna("").astype(str).str.strip()
+        cleaned = cleaned.str.replace(r'[$\s,]', '', regex=True)
+        cleaned = cleaned.str.replace(r'^\((.*)\)$', r'-\1', regex=True)
+        cleaned = cleaned.replace('', np.nan)
+        return pd.to_numeric(cleaned, errors="coerce")
+    return pd.to_numeric(series, errors="coerce")
+
+
 def _build_trade_rows(df: pd.DataFrame) -> pd.DataFrame:
     """
     Convert brokerage P&L rows into individual trade records.
@@ -170,7 +197,7 @@ def _build_trade_rows(df: pd.DataFrame) -> pd.DataFrame:
             continue
 
         symbol = str(symbol).strip()
-        quantity = pd.to_numeric(row.get("quantity", 0), errors="coerce") or 0
+        quantity = _clean_scalar(row.get("quantity", 0))
 
         # Skip rows with no quantity (likely sub-headers or totals)
         if quantity == 0:
@@ -181,20 +208,19 @@ def _build_trade_rows(df: pd.DataFrame) -> pd.DataFrame:
         sell_date = pd.to_datetime(row.get("sell_date"), errors="coerce", dayfirst=True)
 
         # Parse prices
-        buy_price = pd.to_numeric(row.get("buy_price", 0), errors="coerce") or 0
-        sell_price = pd.to_numeric(row.get("sell_price", 0), errors="coerce") or 0
+        buy_price = _clean_scalar(row.get("buy_price", 0))
+        sell_price = _clean_scalar(row.get("sell_price", 0))
 
         # Parse P&L
-        pnl_raw = row.get("pnl", 0)
-        pnl = pd.to_numeric(pnl_raw, errors="coerce") or 0
+        pnl = _clean_scalar(row.get("pnl", 0))
 
         # Parse values (fallback: compute from price × quantity)
-        buy_value = pd.to_numeric(row.get("buy_value", 0), errors="coerce")
-        if pd.isna(buy_value) or buy_value == 0:
+        buy_value = _clean_scalar(row.get("buy_value", 0))
+        if buy_value == 0:
             buy_value = buy_price * quantity
 
-        sell_value = pd.to_numeric(row.get("sell_value", 0), errors="coerce")
-        if pd.isna(sell_value) or sell_value == 0:
+        sell_value = _clean_scalar(row.get("sell_value", 0))
+        if sell_value == 0:
             sell_value = sell_price * quantity
 
         # Calculate holding duration
@@ -285,15 +311,15 @@ def parse_trading_file(file_bytes: bytes, filename: str) -> pd.DataFrame:
         )
 
     # Ensure quantity is numeric
-    df_normalized["quantity"] = pd.to_numeric(df_normalized["quantity"], errors="coerce").fillna(0.0)
+    df_normalized["quantity"] = _clean_series(df_normalized["quantity"]).fillna(0.0)
 
     # Dynamically compute buy_price and sell_price if missing but values are present
     if "buy_price" not in df_normalized.columns and "buy_value" in df_normalized.columns:
-        buy_val = pd.to_numeric(df_normalized["buy_value"], errors="coerce").fillna(0.0)
+        buy_val = _clean_series(df_normalized["buy_value"]).fillna(0.0)
         df_normalized["buy_price"] = np.where(df_normalized["quantity"] > 0, buy_val / df_normalized["quantity"], 0.0)
 
     if "sell_price" not in df_normalized.columns and "sell_value" in df_normalized.columns:
-        sell_val = pd.to_numeric(df_normalized["sell_value"], errors="coerce").fillna(0.0)
+        sell_val = _clean_series(df_normalized["sell_value"]).fillna(0.0)
         df_normalized["sell_price"] = np.where(df_normalized["quantity"] > 0, sell_val / df_normalized["quantity"], 0.0)
 
     # Check for price columns

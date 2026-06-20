@@ -23,36 +23,38 @@ export function render() {
       </nav>
 
       <!-- Hero Section -->
-      <section class="welcome-hero">
-        <div class="hero-badge">
-          <span class="pulse-dot"></span>
-          AI-Powered Trading Psychology Analysis
+      <section class="welcome-hero animate-fade-in">
+        <div class="hero-content">
+          <div class="hero-badge">
+            <span class="pulse-dot"></span>
+            AI-Powered Trading Psychology Analysis
+          </div>
+
+          <h1 class="hero-title">
+            Decode Your<br>
+            <span class="gradient-text">Trading Psychology</span>
+          </h1>
+
+          <p class="hero-subtitle">
+            Upload your trading history and uncover the behavioral patterns behind your wins and losses.
+            Our AI identifies emotional biases, predicts recurring risks, and generates your unique trader profile.
+          </p>
+
+          <div class="hero-actions">
+            <button class="btn-primary" id="heroGetStarted">
+              🚀 Get Started
+            </button>
+          </div>
         </div>
-
-        <h1 class="hero-title">
-          Decode Your<br>
-          <span class="gradient-text">Trading Psychology</span>
-        </h1>
-
-        <p class="hero-subtitle">
-          Upload your trading history and uncover the behavioral patterns behind your wins and losses.
-          Our AI identifies emotional biases, predicts recurring risks, and generates your unique trader profile.
-        </p>
-
-        <div class="hero-actions">
-          <button class="btn-primary" id="heroGetStarted">
-            🚀 Get Started Free
-          </button>
-          <button class="btn-ghost" id="heroDemoBtn">
-            ▶ Try Demo
-          </button>
+        <div class="hero-image-container">
+          <img src="/images/welcome_hero.png" alt="Neural Trading Psychology Brain" class="hero-psychology-img" />
         </div>
       </section>
 
       <!-- Stats -->
       <section class="stats-bar">
         <div class="stat-item">
-          <div class="stat-number" data-count="10000" data-suffix="+">0</div>
+          <div class="stat-number" data-count="20000" data-suffix="+">0</div>
           <div class="stat-label">Trades Analyzed</div>
         </div>
         <div class="stat-item">
@@ -60,7 +62,7 @@ export function render() {
           <div class="stat-label">Pattern Accuracy</div>
         </div>
         <div class="stat-item">
-          <div class="stat-number" data-count="500" data-suffix="+">0</div>
+          <div class="stat-number" data-count="200" data-suffix="+">0</div>
           <div class="stat-label">Traders Profiled</div>
         </div>
       </section>
@@ -88,17 +90,16 @@ export function render() {
       </section>
 
     <!-- Footer -->
-<footer class="welcome-footer">
-  <p>© 2025 TradePsych AI — Built for traders who want to master their psychology.</p>
-
-  <p class="team-members">
-    <strong>Team:</strong>
-    Inarat Hussain (inarat214@gmail.com) |
-    Bhanushree RN (bhanushree2603@gmail.com) |
-    Sajida Begum (sajidabegumlaskar5@gmail.com) |
-    Divya Basavaraj (divyabasavaraj54@gmail.com)
-  </p>
-</footer>
+    <footer class="welcome-footer">
+      <p>© 2026 TradePsych AI — Built for traders who want to master their psychology.</p>
+ 
+      <p class="team-members">
+        <strong>Team:</strong>
+        Inarat Hussain (inarat214@gmail.com) |
+        Bhanushree RN (bhanushree2603@gmail.com) |
+        Sajida Begum (sajidabegumlaskar5@gmail.com)
+      </p>
+    </footer>
 `;
 
 }
@@ -126,11 +127,7 @@ export function mount() {
     window.location.hash = '#/signup';
   });
 
-  document.getElementById('heroDemoBtn')?.addEventListener('click', () => {
-    // Store demo flag
-    sessionStorage.setItem('tradepsych_demo', 'true');
-    window.location.hash = '#/login';
-  });
+
 }
 
 export function unmount() {

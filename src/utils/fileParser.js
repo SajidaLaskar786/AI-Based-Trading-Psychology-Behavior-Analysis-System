@@ -29,15 +29,36 @@ export async function parseFile(file) {
           return;
         }
 
-        // Extract headers and rows
-        const headers = rawData[0].map(h => String(h).trim().toLowerCase());
-        const rawRows = rawData.slice(1).filter(row => row.some(cell => cell !== undefined && cell !== ''));
+        // Dynamically detect header row (scans first 30 rows for standard markers)
+        const headerMarkers = ['symbol', 'scrip', 'isin', 'instrument', 'stockname', 'ticker'];
+        let headerRowIdx = 0;
+        
+        for (let r = 0; r < Math.min(30, rawData.length); r++) {
+          const row = rawData[r];
+          if (row && Array.isArray(row)) {
+            const hasMarker = row.some(cell => {
+              if (cell === undefined || cell === null) return false;
+              const val = String(cell).trim().toLowerCase().replace(/[\s_-]/g, '');
+              return headerMarkers.some(marker => val.includes(marker));
+            });
+            if (hasMarker) {
+              headerRowIdx = r;
+              break;
+            }
+          }
+        }
+
+        // Extract headers and rows from detected header row
+        const headers = rawData[headerRowIdx].map(h => h !== null && h !== undefined ? String(h).trim().toLowerCase() : '');
+        const rawRows = rawData.slice(headerRowIdx + 1).filter(row => row.some(cell => cell !== undefined && cell !== ''));
 
         // Convert to array of objects
         const rows = rawRows.map(row => {
           const obj = {};
           headers.forEach((header, idx) => {
-            obj[header] = row[idx] !== undefined ? row[idx] : null;
+            if (header) {
+              obj[header] = row[idx] !== undefined ? row[idx] : null;
+            }
           });
           return obj;
         });
@@ -61,21 +82,25 @@ export async function parseFile(file) {
 export function validateColumns(headers) {
   // Expected columns (flexible mapping)
   const columnMap = {
-    date: ['date', 'trade_date', 'tradedate', 'dt'],
+    date: ['date', 'trade_date', 'tradedate', 'dt', 'buy_date', 'sell_date'],
     time: ['time', 'trade_time', 'tradetime', 'timestamp', 'ts'],
-    symbol: ['symbol', 'ticker', 'stock', 'instrument', 'asset'],
+    symbol: ['symbol', 'ticker', 'stock', 'instrument', 'asset', 'stockname', 'stock_name'],
     side: ['side', 'type', 'direction', 'action', 'buy_sell', 'buysell', 'b/s'],
     quantity: ['quantity', 'qty', 'size', 'volume', 'lots', 'shares'],
-    entry_price: ['entry_price', 'entryprice', 'entry', 'buy_price', 'open_price', 'openprice'],
-    exit_price: ['exit_price', 'exitprice', 'exit', 'sell_price', 'close_price', 'closeprice'],
-    pnl: ['pnl', 'p&l', 'profit', 'profit_loss', 'profitloss', 'pl', 'net_pnl', 'realized_pnl', 'return']
+    entry_price: ['entry_price', 'entryprice', 'entry', 'buy_price', 'open_price', 'openprice', 'price'],
+    exit_price: ['exit_price', 'exitprice', 'exit', 'sell_price', 'close_price', 'closeprice', 'price'],
+    pnl: ['pnl', 'p&l', 'profit', 'profit_loss', 'profitloss', 'pl', 'p/l', 'net_pnl', 'realized_pnl', 'realised_pnl', 'return', 'gain/loss', 'profit/loss', 'netp&l']
   };
 
   const mapped = {};
   const missing = [];
 
   for (const [key, aliases] of Object.entries(columnMap)) {
-    const found = headers.find(h => aliases.includes(h.replace(/[\s_-]/g, '').toLowerCase()));
+    const found = headers.find(h => {
+      const normH = h.replace(/[\s_-]/g, '').toLowerCase();
+      return aliases.map(a => a.replace(/[\s_-]/g, '').toLowerCase()).includes(normH);
+    });
+    
     if (found) {
       mapped[key] = found;
     } else {
@@ -84,7 +109,7 @@ export function validateColumns(headers) {
   }
 
   return {
-    valid: missing.length <= 2, // Allow some missing columns
+    valid: missing.length <= 3, // Allow some missing columns (e.g. time, entry/exit split)
     missing,
     mapped
   };

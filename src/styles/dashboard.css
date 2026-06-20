@@ -91,7 +91,7 @@
 
 /* --- Main Content --- */
 .dashboard-content {
-  max-width: 900px;
+  max-width: 1150px;
   margin: 0 auto;
   padding: var(--space-3xl) var(--space-xl);
 }
@@ -114,6 +114,58 @@
 .dashboard-welcome p {
   color: var(--clr-text-secondary);
   font-size: var(--fs-md);
+}
+
+/* --- Dashboard Grid --- */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: var(--space-2xl);
+  margin-bottom: var(--space-3xl);
+  align-items: stretch;
+}
+
+.dashboard-visual {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--space-2xl);
+  animation: fadeInUp 0.5s ease 0.1s both;
+}
+
+.dashboard-visual-img {
+  width: 100%;
+  max-width: 220px;
+  height: auto;
+  margin-bottom: var(--space-lg);
+  filter: drop-shadow(0 10px 20px rgba(124, 92, 252, 0.25));
+  animation: float 4s ease-in-out infinite;
+}
+
+.dashboard-visual h3 {
+  font-size: var(--fs-md);
+  margin-bottom: var(--space-xs);
+  background: linear-gradient(135deg, var(--clr-primary-light), var(--clr-accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+}
+
+.dashboard-visual p {
+  font-size: var(--fs-sm);
+  color: var(--clr-text-secondary);
+  line-height: 1.6;
+  max-width: 320px;
+}
+
+@media (max-width: 800px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
 }
 
 /* --- Upload Zone --- */

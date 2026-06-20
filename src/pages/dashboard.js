@@ -35,23 +35,32 @@ export function render() {
       </header>
 
       <!-- Main Content -->
-      <main class="dashboard-content">
+      <main class="dashboard-content animate-fade-in">
         <div class="dashboard-welcome">
-          <h1><span class="wave">👋</span> Welcome, ${name.split(' ')[0]}!</h1>
+          <h1><span class="wave">👋</span> Welcome, ${name}!</h1>
           <p>Upload your trading history to get a comprehensive behavioral analysis report.</p>
         </div>
 
-        <!-- Upload Zone -->
-        <div class="upload-zone-wrapper">
-          <div class="upload-zone glass-card" id="uploadZone">
-            <input type="file" id="fileInput" accept=".csv,.xlsx,.xls" />
-            <div class="upload-icon">📂</div>
-            <h2>Drag & drop your file here, or <span class="highlight">browse</span></h2>
-            <p class="upload-hint">Upload your trading history to begin analysis</p>
-            <div class="upload-formats">
-              <span class="format-tag">.CSV</span>
-              <span class="format-tag">.XLSX</span>
-              <span class="format-tag">.XLS</span>
+        <!-- Dashboard Grid -->
+        <div class="dashboard-grid">
+          <div class="dashboard-visual glass-card">
+            <img src="/images/dashboard_brain.png" alt="Cerebral Analysis Illustration" class="dashboard-visual-img" />
+            <h3>Behavioral AI Engine</h3>
+            <p>Our machine learning models analyze 15+ cognitive and behavioral factors to uncover revenge trading, FOMO, and emotional sizing biases in your trades.</p>
+          </div>
+
+          <!-- Upload Zone -->
+          <div class="upload-zone-wrapper">
+            <div class="upload-zone glass-card" id="uploadZone">
+              <input type="file" id="fileInput" accept=".csv,.xlsx,.xls" />
+              <div class="upload-icon">📂</div>
+              <h2>Drag & drop your file here, or <span class="highlight">browse</span></h2>
+              <p class="upload-hint">Upload your trading history to begin analysis</p>
+              <div class="upload-formats">
+                <span class="format-tag">.CSV</span>
+                <span class="format-tag">.XLSX</span>
+                <span class="format-tag">.XLS</span>
+              </div>
             </div>
           </div>
         </div>
@@ -63,9 +72,6 @@ export function render() {
         <div class="dashboard-actions" id="dashboardActions">
           <button class="btn-analyze" id="analyzeBtn" disabled>
             🧠 Analyze My Trading
-          </button>
-          <button class="btn-ghost btn-sample" id="sampleBtn">
-            📋 Use Sample Data
           </button>
         </div>
       </main>
@@ -123,15 +129,7 @@ export function mount() {
     if (file) handleFile(file);
   });
 
-  // --- Sample Data ---
-  sampleBtn?.addEventListener('click', () => {
-    const data = generateSampleData();
-    parsedData = data;
-    columnMap = {};
-    data.headers.forEach(h => columnMap[h] = h);
-    showPreview(data, 'sample_trading_data.csv', 0);
-    analyzeBtn.disabled = false;
-  });
+
 
   // --- Analyze ---
   analyzeBtn?.addEventListener('click', () => {
@@ -254,18 +252,35 @@ async function runAnalysis() {
   const ticker = setInterval(advanceStep, 900);
 
   try {
-    // ── Call the FastAPI backend ────────────────────────────────────
     const rawFile = parsedData._rawFile;
     if (!rawFile) throw new Error('Original file reference lost. Please re-upload.');
 
+    // ── Call the FastAPI backend ────────────────────────────────────
     const report = await analyzeWithAPI(rawFile);
 
     clearInterval(ticker);
     status.textContent = 'Report ready!';
     bar.style.width = '100%';
 
-    // Store report for the report page
+    // Standardize trade keys using the mapped columns
+    const normalizedTrades = parsedData.rows.map(row => {
+      const normalized = {};
+      Object.entries(columnMap).forEach(([internalKey, csvKey]) => {
+        normalized[internalKey] = row[csvKey];
+      });
+      // Copy remaining fields as fallback
+      Object.entries(row).forEach(([k, v]) => {
+        if (normalized[k] === undefined) {
+          normalized[k] = v;
+        }
+      });
+      return normalized;
+    });
+
+    // Store report and parsed trades for the report page
     sessionStorage.setItem('tradepsych_report', JSON.stringify(report));
+    sessionStorage.setItem('tradepsych_trades', JSON.stringify(normalizedTrades));
+    sessionStorage.setItem('tradepsych_column_map', JSON.stringify(columnMap));
 
     await new Promise(r => setTimeout(r, 400));
     overlay.classList.remove('active');

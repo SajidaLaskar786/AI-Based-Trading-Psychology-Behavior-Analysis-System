@@ -65,6 +65,18 @@
 /* --- Login Card --- */
 .login-card {
   padding: var(--space-2xl) var(--space-2xl) var(--space-xl);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), inset 0 0 15px rgba(124, 92, 252, 0.05);
+  background: rgba(15, 15, 30, 0.7);
+  backdrop-filter: blur(25px);
+  border-radius: var(--radius-lg);
+  transition: all var(--transition-slow) cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.login-card:hover {
+  border-color: rgba(124, 92, 252, 0.25);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5), 0 0 20px var(--clr-primary-glow), inset 0 0 20px rgba(124, 92, 252, 0.1);
+  transform: translateY(-2px);
 }
 
 .login-header {
@@ -153,22 +165,25 @@
 .input-wrapper input {
   width: 100%;
   padding: 0.9rem 1rem 0.9rem 2.8rem;
-  background: var(--clr-surface);
+  background: rgba(255, 255, 255, 0.02);
   border: 1px solid var(--clr-glass-border);
   border-radius: var(--radius-md);
   color: var(--clr-text);
   font-size: var(--fs-base);
   transition: all var(--transition-base);
+  backdrop-filter: blur(10px);
 }
 
 .input-wrapper input:focus {
-  border-color: var(--clr-primary);
-  box-shadow: 0 0 0 3px var(--clr-primary-glow);
+  border-color: var(--clr-primary-light);
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 15px var(--clr-primary-glow), inset 0 0 5px rgba(255, 255, 255, 0.1);
+  transform: translateY(-1px);
 }
 
 .input-wrapper input:focus ~ .input-icon,
 .input-wrapper input:focus + .input-icon {
-  color: var(--clr-primary);
+  color: var(--clr-primary-light);
 }
 
 .input-wrapper input::placeholder {
@@ -233,6 +248,16 @@
   font-size: var(--fs-md);
   font-weight: 600;
   position: relative;
+  transition: all var(--transition-base);
+}
+
+.login-submit:hover {
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: var(--shadow-glow-primary);
+}
+
+.login-submit:active {
+  transform: translateY(0) scale(1);
 }
 
 .login-submit.loading {
@@ -332,4 +357,31 @@
   .login-card {
     padding: var(--space-xl) var(--space-lg);
   }
+}
+
+/* Shake keyframes */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+
+/* Staggered entry transitions for login/signup fields */
+.login-form .form-group:nth-of-type(1) {
+  animation: fadeInUp 0.4s ease 0.15s both;
+}
+.login-form .form-group:nth-of-type(2) {
+  animation: fadeInUp 0.4s ease 0.25s both;
+}
+.login-form .form-group:nth-of-type(3) {
+  animation: fadeInUp 0.4s ease 0.35s both;
+}
+.login-form .form-group:nth-of-type(4) {
+  animation: fadeInUp 0.4s ease 0.45s both;
+}
+.login-form button[type="submit"] {
+  animation: fadeInUp 0.4s ease 0.55s both;
+}
+.login-footer {
+  animation: fadeInUp 0.4s ease 0.65s both;
 }

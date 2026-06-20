@@ -62,10 +62,22 @@ export function render() {
                   id="signupPassword"
                   placeholder="••••••"
                   required
-                  minlength="6"
                   autocomplete="new-password"
                 />
                 <button type="button" class="toggle-password" id="toggleSignupPassword">👁</button>
+              </div>
+              <div class="pwd-strength-meter" id="pwdStrengthMeter" style="margin-top: 8px;">
+                <div class="pwd-strength-bar-bg" style="background: rgba(255,255,255,0.1); height: 6px; border-radius: 3px; overflow: hidden;">
+                  <div class="pwd-strength-bar" id="pwdStrengthBar" style="height: 100%; width: 0%; transition: width 0.3s, background-color 0.3s;"></div>
+                </div>
+                <div class="pwd-strength-text" id="pwdStrengthText" style="font-size: var(--fs-xs); margin-top: 4px; font-weight: 500;"></div>
+                <ul class="pwd-requirements" style="font-size: var(--fs-xs); margin-top: 6px; padding-left: 0; color: rgba(255,255,255,0.4); list-style-type: none; line-height: 1.4;">
+                  <li id="req-length">❌ Min 8 characters</li>
+                  <li id="req-upper">❌ At least 1 uppercase letter</li>
+                  <li id="req-lower">❌ At least 1 lowercase letter</li>
+                  <li id="req-digit">❌ At least 1 number</li>
+                  <li id="req-special">❌ At least 1 special character</li>
+                </ul>
               </div>
             </div>
 
@@ -147,8 +159,18 @@ export function mount() {
       return;
     }
 
-    if (password.length < 6) {
-      showError('Password must be at least 6 characters long.');
+    if (password.length < 8) {
+      showError('Password must be at least 8 characters long.');
+      return;
+    }
+
+    const hasUpper = /[A-Z]/.test(password);
+    const hasLower = /[a-z]/.test(password);
+    const hasDigit = /[0-9]/.test(password);
+    const hasSpecial = /[^A-Za-z0-9]/.test(password);
+
+    if (!hasUpper || !hasLower || !hasDigit || !hasSpecial) {
+      showError('Password does not meet all strong requirements below.');
       return;
     }
 
@@ -166,9 +188,88 @@ export function mount() {
       // Shake animation
       submitBtn.style.animation = 'none';
       submitBtn.offsetHeight; // Trigger reflow
-      submitBtn.style.animation = '';
+      submitBtn.style.animation = 'shake 0.4s ease';
     }
   });
+
+  // Real-time password strength check
+  const pwdStrengthBar = document.getElementById('pwdStrengthBar');
+  const pwdStrengthText = document.getElementById('pwdStrengthText');
+  const reqLength = document.getElementById('req-length');
+  const reqUpper = document.getElementById('req-upper');
+  const reqLower = document.getElementById('req-lower');
+  const reqDigit = document.getElementById('req-digit');
+  const reqSpecial = document.getElementById('req-special');
+
+  passwordInput?.addEventListener('input', () => {
+    const val = passwordInput.value;
+    
+    // Check criteria
+    const hasLength = val.length >= 8;
+    const hasUpper = /[A-Z]/.test(val);
+    const hasLower = /[a-z]/.test(val);
+    const hasDigit = /[0-9]/.test(val);
+    const hasSpecial = /[^A-Za-z0-9]/.test(val);
+    
+    // Update checklist
+    updateReq(reqLength, hasLength, 'Min 8 characters');
+    updateReq(reqUpper, hasUpper, 'At least 1 uppercase letter');
+    updateReq(reqLower, hasLower, 'At least 1 lowercase letter');
+    updateReq(reqDigit, hasDigit, 'At least 1 number');
+    updateReq(reqSpecial, hasSpecial, 'At least 1 special character');
+    
+    // Calculate score
+    let score = 0;
+    if (val.length > 0) {
+      if (hasLength) score++;
+      if (hasUpper) score++;
+      if (hasLower) score++;
+      if (hasDigit) score++;
+      if (hasSpecial) score++;
+    }
+    
+    // Update strength text and color
+    let color = '#ef5350';
+    let text = '';
+    let width = '0%';
+    
+    if (val.length === 0) {
+      text = '';
+      width = '0%';
+    } else if (score <= 2) {
+      text = 'Weak 🛑';
+      color = '#ef5350';
+      width = '30%';
+    } else if (score <= 4) {
+      text = 'Medium ⚠️';
+      color = '#ff9800';
+      width = '60%';
+    } else {
+      text = 'Strong Passphrase ✅';
+      color = '#4caf50';
+      width = '100%';
+    }
+    
+    if (pwdStrengthBar) {
+      pwdStrengthBar.style.width = width;
+      pwdStrengthBar.style.backgroundColor = color;
+    }
+    if (pwdStrengthText) {
+      pwdStrengthText.textContent = text;
+      pwdStrengthText.style.color = color;
+    }
+  });
+
+  function updateReq(el, met, text) {
+    if (!el) return;
+    if (met) {
+      el.innerHTML = `✅ ${text}`;
+      el.style.color = '#4caf50';
+    } else {
+      el.innerHTML = `❌ ${text}`;
+      el.style.color = 'rgba(255,255,255,0.4)';
+    }
+  }
 
   function showError(msg) {
     errorEl.textContent = msg;

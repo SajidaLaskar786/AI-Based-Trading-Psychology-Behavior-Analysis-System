@@ -69,15 +69,8 @@ export function render() {
             </button>
           </form>
 
-          <div class="login-divider">or</div>
-
-          <button class="demo-login" id="demoLoginBtn">
-            ⚡ Sign in with Demo Account
-          </button>
-
           <div class="login-footer">
             <p>New to TradePsych AI? <a href="#/signup" style="color: var(--clr-primary-light); font-weight: 500;">Sign Up</a></p>
-            <p style="margin-top: var(--space-xs); font-size: var(--fs-xs); opacity: 0.6;">Demo credentials: trader@demo.com / demo123</p>
           </div>
         </div>
       </div>
@@ -91,7 +84,6 @@ export function mount() {
   const errorEl = document.getElementById('loginError');
   const toggleBtn = document.getElementById('togglePassword');
   const passwordInput = document.getElementById('loginPassword');
-  const demoBtn = document.getElementById('demoLoginBtn');
   const backBtn = document.getElementById('loginBackBtn');
 
   // Back to home
@@ -127,38 +119,11 @@ export function mount() {
       // Shake animation
       submitBtn.style.animation = 'none';
       submitBtn.offsetHeight; // Trigger reflow
-      submitBtn.style.animation = '';
+      submitBtn.style.animation = 'shake 0.4s ease';
     }
   });
 
-  // Demo login
-  demoBtn?.addEventListener('click', async () => {
-    const emailInput = document.getElementById('loginEmail');
-    const pwInput = document.getElementById('loginPassword');
 
-    // Auto-fill with animation
-    emailInput.value = '';
-    pwInput.value = '';
-
-    const demoEmail = 'trader@demo.com';
-    const demoPw = 'demo123';
-
-    // Type email animation
-    for (let i = 0; i < demoEmail.length; i++) {
-      await delay(40);
-      emailInput.value += demoEmail[i];
-    }
-    await delay(200);
-    // Type password
-    for (let i = 0; i < demoPw.length; i++) {
-      await delay(60);
-      pwInput.value += demoPw[i];
-    }
-    await delay(300);
-
-    // Auto-submit
-    form.dispatchEvent(new Event('submit'));
-  });
 }
 
 export function unmount() {}

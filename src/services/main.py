@@ -1,12 +1,13 @@
+# -*- coding: utf-8 -*- (reload trigger)
 """
-FastAPI – Trader Psychology Analyzer
+FastAPI - Trader Psychology Analyzer
 =====================================
 Handles the Groww-style Excel P&L report (and generic CSVs).
  
 Project layout expected:
   src/
   ├── services/
-  │   └── main.py                 ← this file
+  │   └── main.py                 - this file
   ├── feature_engineering/
   │   └── generate_features.py
   ├── models/
@@ -19,13 +20,14 @@ Project layout expected:
   │   └── recommendation_engine.py
   ├── reporting/
   │   └── report_generator.py
-  └── temp/                       ← auto-created; upload staging
+  └── temp/                       - auto-created; upload staging
 """
  
 import os
 import sys
 import uuid
 import traceback
+import threading
  
 import numpy as np
 import pandas as pd
@@ -36,10 +38,12 @@ from fastapi import FastAPI, File, UploadFile, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Optional
- 
+
 # ── path wiring so every src sub-package is importable ────────────────────────
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+ROOT_DIR = os.path.abspath(os.path.join(BASE_DIR, ".."))
 sys.path.insert(0, BASE_DIR)
+sys.path.insert(0, ROOT_DIR)
  
 from feature_engineering.generate_features import generate_features
 from analysis.behavior_analysis          import generate_analysis
@@ -63,6 +67,78 @@ app.add_middleware(
     allow_methods     = ["*"],
     allow_headers     = ["*"],
 )
+ 
+from routes.analysis import router as analysis_router
+app.include_router(analysis_router)
+
+excel_lock = threading.Lock()
+USERS_EXCEL_PATH = os.path.join(ROOT_DIR, "data", "users.xlsx")
+
+class RegisterRequest(BaseModel):
+    username: str
+    email: str
+    password: str
+
+class LoginRequest(BaseModel):
+    email: str
+    password: str
+
+@app.post("/api/v1/register")
+def register_user(req: RegisterRequest):
+    email_clean = req.email.strip().lower()
+    username_clean = req.username.strip()
+    
+    with excel_lock:
+        os.makedirs(os.path.dirname(USERS_EXCEL_PATH), exist_ok=True)
+        if os.path.exists(USERS_EXCEL_PATH):
+            try:
+                df = pd.read_excel(USERS_EXCEL_PATH)
+            except Exception:
+                df = pd.DataFrame(columns=["username", "email", "password"])
+        else:
+            df = pd.DataFrame(columns=["username", "email", "password"])
+        
+        # Check if email already registered
+        if not df.empty and "email" in df.columns:
+            existing_emails = df["email"].astype(str).str.strip().str.lower().values
+            if email_clean in existing_emails:
+                raise HTTPException(status_code=400, detail="Email is already registered.")
+        
+        new_row = pd.DataFrame([{"username": username_clean, "email": email_clean, "password": req.password}])
+        df = pd.concat([df, new_row], ignore_index=True)
+        df.to_excel(USERS_EXCEL_PATH, index=False)
+        
+    return {"message": "Registration successful", "username": username_clean, "email": email_clean}
+
+@app.post("/api/v1/login")
+def login_user(req: LoginRequest):
+    email_clean = req.email.strip().lower()
+    
+    with excel_lock:
+        if not os.path.exists(USERS_EXCEL_PATH):
+            raise HTTPException(status_code=401, detail="Invalid email or password.")
+        try:
+            df = pd.read_excel(USERS_EXCEL_PATH)
+        except Exception:
+            raise HTTPException(status_code=500, detail="Failed to read user database.")
+            
+        if df.empty or "email" not in df.columns or "password" not in df.columns:
+            raise HTTPException(status_code=401, detail="Invalid email or password.")
+            
+        # Match email and password
+        matched = df[
+            (df["email"].astype(str).str.strip().str.lower() == email_clean) &
+            (df["password"].astype(str) == req.password)
+        ]
+        
+        if matched.empty:
+            raise HTTPException(status_code=401, detail="Invalid email or password.")
+            
+        user_row = matched.iloc[0]
+        username = user_row["username"]
+        email = user_row["email"]
+        
+    return {"username": username, "email": email}
  
  
 # ══════════════════════════════════════════════════════════════════════════════

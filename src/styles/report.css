@@ -483,3 +483,15 @@
     padding: var(--space-lg);
   }
 }
+
+/* --- Advice Cards Hover Effects --- */
+.advice-card {
+  transition: transform var(--transition-base), border-color var(--transition-base), background-color var(--transition-base);
+}
+
+.advice-card:hover {
+  transform: translateX(4px);
+  background: rgba(255, 255, 255, 0.04) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  border-left-color: var(--clr-accent) !important;
+}
