@@ -7,6 +7,16 @@ export default defineConfig({
     entries: ['index.html', 'src/main.js'],
   },
   server: {
+    proxy: {
+      '/api/v1': {
+        target: 'http://127.0.0.1:8000',
+        changeOrigin: true
+      },
+      '/api': {
+        target: 'http://127.0.0.1:3000',
+        changeOrigin: true
+      }
+    },
     watch: {
       ignored: [
         '**/.venv/**',

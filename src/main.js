@@ -10,6 +10,7 @@ import './styles/welcome.css';
 import './styles/login.css';
 import './styles/dashboard.css';
 import './styles/report.css';
+import './styles/simulation.css';
 
 // Import pages
 import * as WelcomePage from './pages/welcome.js';
@@ -17,6 +18,7 @@ import * as LoginPage from './pages/login.js';
 import * as SignupPage from './pages/signup.js';
 import * as DashboardPage from './pages/dashboard.js';
 import * as ReportPage from './pages/report.js';
+import * as SimulationPage from './pages/simulation.js';
 
 // Route definitions
 const routes = {
@@ -25,6 +27,7 @@ const routes = {
   '/signup': SignupPage,
   '/dashboard': DashboardPage,
   '/report': ReportPage,
+  '/simulation': SimulationPage,
 };
 
 let currentPage = null;

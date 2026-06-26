@@ -2,6 +2,7 @@
  * Report Page — Full analysis report with charts, future predictions, and animated 2D visualizations
  */
 import { isLoggedIn, getUserInitials, getUserName, logout } from '../utils/auth.js';
+import Chart from 'chart.js/auto';
 let sortedTrades = [];
 
 export function render() {
@@ -45,6 +46,7 @@ export function render() {
           <span class="topbar-brand">TradePsych AI</span>
         </div>
         <div class="topbar-right">
+          <a href="#/simulation" class="btn-ghost" style="margin-right: 15px; font-size: var(--fs-sm); padding: 6px 12px; border-radius: 6px; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; color: var(--clr-primary-light); background: rgba(124, 92, 252, 0.1); border: 1px solid rgba(124, 92, 252, 0.2);">Live Simulation 📈</a>
           <div class="topbar-user">
             <div class="topbar-avatar">${initials}</div>
             <span>${name}</span>
@@ -70,44 +72,27 @@ export function render() {
       <!-- Report Grid -->
       <div class="report-grid">
 
-        <!-- Card 1 (LEFT): Psychological Profile Accuracy -->
-        <div class="report-section glass-card">
-          <h2 class="section-title"><span class="icon">🎯</span> Profile Accuracy</h2>
-          <div style="display: flex; align-items: center; justify-content: space-around; gap: 20px; padding: 15px 0;">
-            <div class="profile-ring-container">
-              <div class="profile-ring" style="width: 130px; height: 130px; position: relative;">
-                <svg style="width: 100%; height: 100%; transform: rotate(-90deg);">
-                  <circle class="profile-ring-bg" cx="65" cy="65" r="55" style="fill: none; stroke: var(--clr-surface); stroke-width: 6;"></circle>
-                  <circle class="profile-ring-fill" id="profileRingFill" cx="65" cy="65" r="55" style="fill: none; stroke: url(#profileGradient); stroke-width: 6; stroke-linecap: round; stroke-dasharray: 345.6; stroke-dashoffset: 345.6; transition: stroke-dashoffset 1.5s ease;"></circle>
-                  <defs>
-                    <linearGradient id="profileGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stop-color="var(--clr-primary-light)"></stop>
-                      <stop offset="100%" stop-color="var(--clr-accent)"></stop>
-                    </linearGradient>
-                  </defs>
-                </svg>
-                <div class="profile-ring-text" style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                  <span class="profile-confidence-value" style="font-family: var(--font-heading); font-size: var(--fs-xl); font-weight: 800; background: linear-gradient(135deg, var(--clr-primary-light), var(--clr-accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">${report.profile.confidence}%</span>
-                  <span class="profile-confidence-label" style="font-size: 9px; color: var(--clr-text-muted); text-transform: uppercase; letter-spacing: 0.1em;">Confidence</span>
-                </div>
-              </div>
+        <!-- Card 1 (LEFT): Multi-Vari Chart -->
+        <div class="report-section glass-card" style="position: relative;">
+          <h2 class="section-title"><span class="icon">🕸️</span> Multi-Vari Interaction Plot 🕵️‍♂️</h2>
+          <div style="height: 220px; width: 100%; margin-top: 15px; position: relative;">
+            <canvas id="multiVariChart"></canvas>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-top: 15px;">
+            <div>
+              <span style="font-size: var(--fs-xs); text-transform: uppercase; color: var(--clr-text-muted); font-weight: 600; letter-spacing: 0.05em;">Trader 👩‍💻</span>
+              <div style="font-size: var(--fs-md); color: #fff; font-weight: 600; margin-top: 2px;">${name}</div>
             </div>
             <div>
-              <div style="margin-bottom: 16px;">
-                <span style="font-size: var(--fs-xs); text-transform: uppercase; color: var(--clr-text-muted); font-weight: 600; letter-spacing: 0.05em;">Trader's Username</span>
-                <div style="font-size: var(--fs-md); color: #fff; font-weight: 600; margin-top: 2px;">${name}</div>
-              </div>
-              <div style="margin-bottom: 16px;">
-                <span style="font-size: var(--fs-xs); text-transform: uppercase; color: var(--clr-text-muted); font-weight: 600; letter-spacing: 0.05em;">Total Trades</span>
-                <div style="font-size: var(--fs-md); color: #fff; font-weight: 600; margin-top: 2px;">${report.summary.totalTrades}</div>
-              </div>
+              <span style="font-size: var(--fs-xs); text-transform: uppercase; color: var(--clr-text-muted); font-weight: 600; letter-spacing: 0.05em;">Total Trades 🔢</span>
+              <div style="font-size: var(--fs-md); color: #fff; font-weight: 600; margin-top: 2px;">${report.summary.totalTrades}</div>
             </div>
           </div>
         </div>
 
         <!-- Card 2 (RIGHT): Trader Type & Personality Summary -->
         <div class="report-section glass-card">
-          <h2 class="section-title"><span class="icon">🎭</span> Trader Personality</h2>
+          <h2 class="section-title"><span class="icon">🎭</span> Trader Personality 🧠✨</h2>
           <div class="profile-info" style="display: flex; align-items: center; gap: 20px; padding: 10px 0;">
             <div style="font-size: 3rem; background: rgba(255,255,255,0.05); width: 80px; height: 80px; display: flex; align-items: center; justify-content: center; border-radius: 50%; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 4px 15px rgba(0,0,0,0.2);">${report.profile.emoji}</div>
             <div>
@@ -123,7 +108,7 @@ export function render() {
 
         <!-- Card 3: Behavioral Drivers Impact -->
         <div class="report-section glass-card">
-          <h2 class="section-title"><span class="icon">📊</span> Behavioral Drivers</h2>
+          <h2 class="section-title"><span class="icon">📊</span> Behavioral Drivers 🚀🔥</h2>
           <div class="feature-list" style="margin-top: var(--space-md);">
             ${report.features.slice(0, 5).map((f, index) => `
               <div class="feature-item">
@@ -144,7 +129,7 @@ export function render() {
 
         <!-- Card 4: Actionable Advice -->
         <div class="report-section glass-card" style="display: flex; flex-direction: column;">
-          <h2 class="section-title" style="margin-bottom: var(--space-md);"><span class="icon">💡</span> Actionable Advice</h2>
+          <h2 class="section-title" style="margin-bottom: var(--space-md);"><span class="icon">💡</span> Actionable Advice ✅✨</h2>
           <div class="advice-list" style="display: flex; flex-direction: column; height: 100%; justify-content: flex-start;">
             ${bulletRecommendations}
           </div>
@@ -152,7 +137,7 @@ export function render() {
 
         <!-- Card 5: Future Risks & Recommendations -->
         <div class="report-section glass-card full-width">
-          <h2 class="section-title"><span class="icon">🔮</span> Future Risks & Recommendations</h2>
+          <h2 class="section-title"><span class="icon">🔮</span> Future Risks & Recommendations ⚠️🛡️</h2>
           <p style="font-size: var(--fs-xs); color: var(--clr-text-secondary); margin-top: -12px; margin-bottom: var(--space-md); line-height: 1.5;">
             Actionable steps based on your emotional profile to limit potential future trading drawdowns.
           </p>
@@ -171,7 +156,7 @@ export function render() {
 
         <!-- Card 6: AI Future Projections Summary -->
         <div class="report-section glass-card full-width" style="background: rgba(124, 92, 252, 0.05); border: 1px solid rgba(124, 92, 252, 0.15);">
-          <h2 class="section-title" style="color: var(--clr-primary-light);"><span class="icon">🧠</span> AI Future Behavioral Projections</h2>
+          <h2 class="section-title" style="color: var(--clr-primary-light);"><span class="icon">🧠</span> AI Future Behavioral Projections 🤖📈</h2>
           <p style="line-height: 1.7; font-size: var(--fs-sm); opacity: 0.9; margin: 0;">
             ${generateFuturePredictionsText(report.profile.type, report.summary.winRate, report.summary.profitFactor)}
           </p>
@@ -219,12 +204,51 @@ export function mount() {
   
   // --- Animate Profile Ring ---
   setTimeout(() => {
-    const ring = document.getElementById('profileRingFill');
-    if (ring) {
-      const circumference = 2 * Math.PI * 55; // r=55
-      const offset = circumference * (1 - report.profile.confidence / 100);
-      ring.style.strokeDasharray = circumference;
-      ring.style.strokeDashoffset = offset;
+    const ctx = document.getElementById('multiVariChart');
+    if (ctx) {
+      const featureLabels = report.features.slice(0, 5).map(f => f.name.substring(0, 15));
+      const featureData = report.features.slice(0, 5).map(f => f.importance);
+      
+      new Chart(ctx, {
+        type: 'radar',
+        data: {
+          labels: featureLabels.length ? featureLabels : ['Discipline', 'Emotion', 'Risk', 'Patience', 'Focus'],
+          datasets: [{
+            label: 'Behavioral Weights',
+            data: featureData.length ? featureData : [65, 59, 90, 81, 56],
+            fill: true,
+            backgroundColor: 'rgba(124, 92, 252, 0.2)',
+            borderColor: 'rgb(124, 92, 252)',
+            pointBackgroundColor: 'rgb(124, 92, 252)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgb(124, 92, 252)'
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            r: {
+              angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
+              grid: { color: 'rgba(255, 255, 255, 0.1)' },
+              pointLabels: { color: '#a0aabf', font: { size: 10, family: 'Inter' } },
+              ticks: { display: false }
+            }
+          },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: 'rgba(15, 23, 42, 0.9)',
+              titleColor: '#fff',
+              bodyColor: '#a0aabf',
+              padding: 10,
+              cornerRadius: 8,
+              displayColors: false
+            }
+          }
+        }
+      });
     }
   }, 300);
 

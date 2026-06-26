@@ -7,9 +7,14 @@ export function render() {
   return `
     <div class="login-page">
       <div class="login-container">
-        <button class="login-back" id="loginBackBtn">
-          ← Back to Home
-        </button>
+        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 20px;">
+          <button class="login-back" id="loginBackBtn" style="margin-bottom: 0;">
+            ← Back to Home
+          </button>
+          <a href="#/simulation" class="btn-ghost" style="text-decoration: none; margin-bottom: 0; padding: 6px 12px; border-radius: 6px; font-size: 0.9em; display: inline-flex; align-items: center; color: var(--clr-primary-light); background: rgba(124, 92, 252, 0.1); border: 1px solid rgba(124, 92, 252, 0.2);">
+            Live Simulation 📈
+          </a>
+        </div>
 
         <div class="login-card glass-card">
           <div class="login-header">

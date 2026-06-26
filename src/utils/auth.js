@@ -4,7 +4,7 @@
 
 const AUTH_KEY = 'tradepsych_auth';
 
-const API_BASE = 'http://localhost:8000/api/v1';
+const API_BASE = '/api/v1';
 
 export async function login(email, password) {
   const response = await fetch(`${API_BASE}/login`, {

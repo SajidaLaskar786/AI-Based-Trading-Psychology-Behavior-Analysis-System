@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trader Psychology Lab - Simulator & behavioral Analytics</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- TradingView Lightweight Charts CDN -->
+  <script src="https://unpkg.com/lightweight-charts@4.1.1/dist/lightweight-charts.standalone.production.js"></script>
+  <!-- Canvas Confetti for gamification -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="dark-mode">
+  
+  <!-- Animated Background Layer -->
+  <div class="animated-bg">
+    <div class="gradient-blob blob-1"></div>
+    <div class="gradient-blob blob-2"></div>
+    <div class="gradient-blob blob-3"></div>
+  </div>
+
+  <!-- Global Notification Toast -->
+  <div id="toast" class="toast hidden"></div>
+
+  <!-- AUTH SCREEN -->
+  <div id="auth-screen" class="auth-container">
+    <div class="auth-card">
+      <div class="auth-header">
+        <div class="auth-logo"><i class="fa-solid fa-brain"></i></div>
+        <h1>Trader Psychology Lab</h1>
+        <p>Simulation-driven behavioral profiling and AI-powered diagnostic reporting.</p>
+      </div>
+      
+      <form id="login-form" class="auth-form">
+        <div class="form-group">
+          <label for="username-input">Enter Username</label>
+          <div class="input-wrapper">
+            <i class="fa-solid fa-user"></i>
+            <input type="text" id="username-input" placeholder="e.g. market_wizard" required autocomplete="off">
+          </div>
+        </div>
+        <button type="submit" id="login-submit-btn" class="btn btn-primary btn-block">
+          Begin Session <i class="fa-solid fa-chevron-right ml-2"></i>
+        </button>
+      </form>
+      <div class="auth-footer">
+        <p>Access ₹10,00,000 in virtual capital instantly. Session data is persisted automatically.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- DASHBOARD WRAPPER (HIDDEN BY DEFAULT) -->
+  <div id="main-dashboard" class="dashboard-wrapper hidden">
+    
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <i class="fa-solid fa-brain brand-icon"></i>
+        <span>Psychology Lab</span>
+      </div>
+
+      <div class="user-profile">
+        <div class="avatar"><i class="fa-solid fa-circle-user"></i></div>
+        <div class="user-info">
+          <h4 id="user-display-name">Username</h4>
+          <span class="user-role">Trader Trainee</span>
+        </div>
+      </div>
+
+      <!-- Live Clock & Equity -->
+      <div class="sim-clock-card">
+        <div class="clock-label"><i class="fa-regular fa-clock"></i> Simulation Time</div>
+        <div id="sim-time-display" class="clock-time">-- : -- : --</div>
+        <div class="clock-label mt-3"><i class="fa-solid fa-wallet"></i> Net Equity Valuation</div>
+        <div id="equity-display" class="equity-amount">₹10,00,000.00</div>
+        <div id="cash-balance-display" class="cash-amount">Cash: ₹10,00,000.00</div>
+      </div>
+
+      <!-- Groww API Token Configuration -->
+      <div class="groww-token-card mt-3">
+        <div class="clock-label"><i class="fa-solid fa-key"></i> Groww API Access Token</div>
+        <div class="token-input-wrapper mt-2">
+          <input type="password" id="groww-token-input" placeholder="Enter Groww Token..." autocomplete="off">
+          <button id="save-groww-token-btn" class="btn btn-primary" title="Save Token"><i class="fa-solid fa-check"></i></button>
+        </div>
+        <div id="groww-token-status" class="token-status text-muted mt-1" style="font-size: 0.7rem; display: flex; align-items: center; gap: 4px;">
+          <i class="fa-solid fa-circle-info"></i> No token saved. Using sim data.
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <ul>
+          <li>
+            <a href="#" class="nav-link active" id="nav-trading" data-view="view-trading">
+              <i class="fa-solid fa-chart-line"></i> Live Simulator
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link" id="nav-portfolio" data-view="view-portfolio">
+              <i class="fa-solid fa-briefcase"></i> Portfolio & Orders
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link" id="nav-analytics" data-view="view-analytics">
+              <i class="fa-solid fa-chart-bar"></i> Behavioral Stats
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link" id="nav-report" data-view="view-report">
+              <i class="fa-solid fa-file-invoice"></i> Psychology Report
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button id="logout-btn" class="btn btn-outline btn-block">
+          <i class="fa-solid fa-right-from-bracket mr-2"></i> End Session
+        </button>
+      </div>
+    </aside>
+
+    <!-- CONTENT AREA -->
+    <main class="content-area">
+      
+      <!-- VIEW 1: TRADING VIEW -->
+      <section id="view-trading" class="dashboard-view active">
+        <div class="view-header">
+          <h2>Live Market Trading</h2>
+          <p>Execute virtual trades across global markets. 1 day matches 30 seconds real time.</p>
+        </div>
+
+        <div class="trading-grid">
+          <!-- Market & Stock List (Left Column) -->
+          <div class="grid-card stock-selector-card">
+            <div class="market-selector">
+              <button class="market-btn active" data-market="NSE">NSE</button>
+              <button class="market-btn" data-market="NASDAQ">NASDAQ</button>
+              <button class="market-btn" data-market="CRYPTO">Crypto</button>
+            </div>
+            <div class="stock-list-container">
+              <table class="stock-table">
+                <thead>
+                  <tr>
+                    <th>Asset</th>
+                    <th class="text-right">Price</th>
+                    <th class="text-right">Change</th>
+                  </tr>
+                </thead>
+                <tbody id="stock-list-body">
+                  <!-- Injected by JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Chart & Symbol Info (Center Column) -->
+          <div class="grid-card chart-card">
+            <div class="chart-header">
+              <div class="symbol-info">
+                <span id="active-symbol" class="symbol-badge">SYMBOL</span>
+                <div>
+                  <h3 id="active-symbol-name">Stock Name</h3>
+                  <span id="active-symbol-market" class="market-label">NSE</span>
+                </div>
+              </div>
+              <div class="price-quote">
+                <div id="active-symbol-price" class="quote-price">₹0.00</div>
+                <div id="active-symbol-change" class="quote-change positive">+0.00%</div>
+              </div>
+            </div>
+            <!-- Candlestick chart div -->
+            <div id="tv-chart-container" class="chart-container-div"></div>
+          </div>
+
+          <!-- Order Form & Positions (Right Column) -->
+          <div class="grid-card order-execution-card">
+            <h3>Execute Order</h3>
+            <div class="order-type-tabs">
+              <button class="order-tab active" id="order-tab-buy">BUY</button>
+            </div>
+
+            <div class="order-form-body">
+              <div class="form-group">
+                <label>Buying Power</label>
+                <div id="buying-power-display" class="stat-value small">₹10,00,000.00</div>
+              </div>
+              <div class="form-group">
+                <label for="order-quantity">Quantity</label>
+                <div class="qty-input-wrapper">
+                  <input type="number" id="order-quantity" value="10" min="1" step="1">
+                  <span class="qty-unit">Shares</span>
+                </div>
+              </div>
+              <div class="order-summary-box">
+                <div class="summary-row">
+                  <span>Price per Share</span>
+                  <span id="order-price-est">₹0.00</span>
+                </div>
+                <div class="summary-row total">
+                  <span>Estimated Total</span>
+                  <span id="order-total-est">₹0.00</span>
+                </div>
+              </div>
+              
+              <button id="execute-order-btn" class="btn btn-success btn-block mt-4">
+                Execute Buy Order
+              </button>
+            </div>
+
+            <!-- Active Position for this stock -->
+            <div class="stock-active-positions mt-4">
+              <h4>Open Positions in <span id="positions-active-symbol">...</span></h4>
+              <div id="stock-positions-list" class="mini-positions-container">
+                <!-- Injected by JS -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW 2: PORTFOLIO & ORDERS -->
+      <section id="view-portfolio" class="dashboard-view">
+        <div class="view-header">
+          <h2>Portfolio & Execution Logs</h2>
+          <p>Review open exposure, current valuations, and complete session transaction logs.</p>
+        </div>
+
+        <!-- Metric Summary Cards -->
+        <div class="portfolio-metrics-grid">
+          <div class="metric-card">
+            <div class="metric-label">Account Balance</div>
+            <div id="port-cash-balance" class="metric-val">₹10,00,000.00</div>
+            <div class="metric-desc">Available cash for new trades.</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">Active Exposure Value</div>
+            <div id="port-exposure" class="metric-val">₹0.00</div>
+            <div class="metric-desc">Current valuation of open positions.</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">Realized Returns</div>
+            <div id="port-realized-pnl" class="metric-val">₹0.00</div>
+            <div id="port-realized-pnl-pct" class="metric-desc positive">+0.00%</div>
+          </div>
+          <div class="metric-card highlight">
+            <div class="metric-label">Net Return on Capital</div>
+            <div id="port-net-return" class="metric-val">₹0.00</div>
+            <div id="port-net-return-pct" class="metric-desc positive">+0.00%</div>
+          </div>
+        </div>
+
+        <!-- Open Positions Section -->
+        <div class="grid-card mt-4">
+          <div class="section-title">
+            <h3><i class="fa-solid fa-folder-open text-primary mr-2"></i> Open Positions</h3>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Asset</th>
+                  <th class="text-right">Qty</th>
+                  <th class="text-right">Entry Price</th>
+                  <th class="text-right">Current Price</th>
+                  <th class="text-right">Entry Value</th>
+                  <th class="text-right">Current Value</th>
+                  <th class="text-right">Unrealized P&L</th>
+                  <th class="text-center">Action</th>
+                </tr>
+              </thead>
+              <tbody id="open-positions-tbody">
+                <tr>
+                  <td colspan="8" class="text-center text-muted py-4">No open positions in this session.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Closed Positions Section -->
+        <div class="grid-card mt-4">
+          <div class="section-title">
+            <h3><i class="fa-solid fa-circle-check text-success mr-2"></i> Closed Trades</h3>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Asset</th>
+                  <th class="text-right">Qty</th>
+                  <th class="text-right">Entry Price</th>
+                  <th class="text-right">Exit Price</th>
+                  <th class="text-right">Buy Value</th>
+                  <th class="text-right">Sell Value</th>
+                  <th class="text-right">Realized P&L</th>
+                  <th>Entry Date (Sim)</th>
+                  <th>Exit Date (Sim)</th>
+                </tr>
+              </thead>
+              <tbody id="closed-positions-tbody">
+                <tr>
+                  <td colspan="9" class="text-center text-muted py-4">No completed trades recorded in this session.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW 3: BEHAVIORAL STATS -->
+      <section id="view-analytics" class="dashboard-view">
+        <div class="view-header">
+          <h2>Behavioral Analytics Layer</h2>
+          <p>Real-time calculation of 19 distinct trade habits, risk vectors, and emotional cues.</p>
+        </div>
+
+        <!-- Feature Category: Performance -->
+        <div class="analytics-section">
+          <h3><i class="fa-solid fa-ranking-star text-info mr-2"></i> Performance Indicators</h3>
+          <div class="features-grid">
+            <div class="feature-card">
+              <div class="feat-name">Win Rate</div>
+              <div id="feat-win_rate" class="feat-value">0.00%</div>
+              <div class="feat-bar-bg"><div id="bar-win_rate" class="feat-bar" style="width: 0%"></div></div>
+              <div class="feat-desc">Percentage of completed trades that closed in positive profit. Benchmark: 55%.</div>
+            </div>
+            <div class="feature-card">
+              <div class="feat-name">Profit Factor</div>
+              <div id="feat-profit_factor" class="feat-value">0.00</div>
+              <div class="feat-bar-bg"><div id="bar-profit_factor" class="feat-bar" style="width: 0%"></div></div>
+              <div class="feat-desc">Ratio of Gross Profits divided by Gross Losses. A value above 1.5 shows profit health.</div>
+            </div>
+            <div class="feature-card">
+              <div class="feat-name">Average Return Per Trade</div>
+              <div id="feat-avg_return_pct" class="feat-value">0.00%</div>
+              <div class="feat-desc">The mathematical mean of percentage returns across all closed positions.</div>
+            </div>
+            <div class="feature-card">
+              <div class="feat-name">Average Win vs Loss Size</div>
+              <div id="feat-avg_win_loss" class="feat-value">₹0 / ₹0</div>
+              <div class="feat-desc">Compares the average winning trade size with the average losing trade size (avg_profit vs avg_loss).</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature Category: Holding Behavior -->
+        <div class="analytics-section mt-4">
+          <h3><i class="fa-solid fa-hourglass-half text-warning mr-2"></i> Holding Mechanics</h3>
+          <div class="features-grid">
+            <div class="feature-card">
+              <div class="feat-name">Average Holding Duration</div>
+              <div id="feat-avg_holding_days" class="feat-value">0.0000 days</div>
+              <div class="feat-desc">Mean holding duration (buy to sell) tracked in simulation calendar days (30 seconds = 1 day).</div>
+            </div>
+            <div class="feature-card">
+              <div class="feat-name">Holding Period Variance</div>
+              <div id="feat-holding_variance" class="feat-value">0.0000</div>
+              <div class="feat-desc">Standard deviation of holding times. Low variance demonstrates consistent trade exit plans.</div>
+            </div>
+            <div class="feature-card">
+              <div class="feat-name">Same-Day Close Ratio</div>
+              <div id="feat-same_day_trade_ratio" class="feat-value">0.00%</div>
+              <div class="feat-bar-bg"><div id="bar-same_day_trade_ratio" class="feat-bar" style="width: 0%"></div></div>
+              <div class="feat-desc">Percentage of trades opened and closed within the same simulation calendar day (day-trading concentration).</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature Category: Activity Level -->
+        <div class="analytics-section mt-4">
+          <h3><i class="fa-solid fa-sliders text-success mr-2"></i> Activity Indicators</h3>
+          <div class="features-grid">
+            <div class="feature-card">
+              <div class="feat-name">Trades Per Sim Month</div>
+              <div id="feat-trades_per_month" class="feat-value">0.0</div>
+              <div class="feat-desc">Frequency of transactions scaled to a simulation calendar month (30 days = 15 real minutes).</div>
+            </div>
+            <div class="feature-card">
+              <div class="feat-name">Average Trades Per Sim Day</div>
+              <div id="feat-avg_trades_per_day" class="feat-value">0.0</div>
+              <div class="feat-desc">Average trade volume executed per simulation day. High averages signify high frequency scalp habits.</div>
+            </div>
+            <div class="feature-card">
+              <div class="feat-name">Average Inter-Trade Gap</div>
+              <div id="feat-avg_gap_between_trades" class="feat-value">0.0000 days</div>
+              <div class="feat-desc">Average duration elapsed from closing one trade to opening the next. Low gaps indicate rush entries.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature Category: Risk Management -->
+        <div class="analytics-section mt-4">
+          <h3><i class="fa-solid fa-shield-halved text-primary mr-2"></i> Risk Management Profile</h3>
+          <div class="features-grid">
+            <div class="feature-card">
+              <div class="feat-name">Average Position Size</div>
+              <div id="feat-avg_position_size" class="feat-value">₹0.00</div>
+              <div class="feat-desc">Mean capital allocation (buy value) per trade. Benchmarked against account purchasing power.</div>
+            </div>
+            <div class="feature-card">
+              <div class="feat-name">Position Size Variance</div>
+              <div id="feat-position_size_variance" class="feat-value">₹0.00</div>
+              <div class="feat-desc">Standard deviation of position sizing. Low variance shows adherence to strict sizing standards.</div>
+            </div>
+            <div class="feature-card">
+              <div class="feat-name">Risk Escalation Ratio</div>
+              <div id="feat-risk_escalation_ratio" class="feat-value">1.00</div>
+              <div class="feat-desc">Average size of trades after wins divided by average size after losses. Ratios above 1.5 show leverage greed.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature Category: Emotional Response -->
+        <div class="analytics-section mt-4">
+          <h3><i class="fa-solid fa-heart-pulse text-danger mr-2"></i> Emotional Response Cues</h3>
+          <div class="features-grid">
+            <div class="feature-card">
+              <div class="feat-name">Post-Loss Size Shift</div>
+              <div id="feat-post_loss_position_change" class="feat-value">0.00%</div>
+              <div class="feat-desc">Percentage change in position size on trades entered immediately after a loss. Large increases indicate revenge trading.</div>
+            </div>
+            <div class="feature-card">
+              <div class="feat-name">Post-Loss Cool-down Delay</div>
+              <div id="feat-post_loss_trade_delay" class="feat-value">0.0000 days</div>
+              <div class="feat-desc">Time elapsed before entering a new trade after closing out a loss. Short delays reveal reactive impulse.</div>
+            </div>
+            <div class="feature-card">
+              <div class="feat-name">PnL Outcome Volatility (Std)</div>
+              <div id="feat-pnl_std" class="feat-value">₹0.00</div>
+              <div class="feat-desc">Standard deviation of realized profits/losses. Measures the stability and swings of absolute trade outcomes.</div>
+            </div>
+            <div class="feature-card">
+              <div class="feat-name">Max Win / Loss Streaks</div>
+              <div id="feat-streaks" class="feat-value">0 wins / 0 losses</div>
+              <div class="feat-desc">Longest run of consecutive wins and consecutive losses. Extended loss streaks test emotional discipline.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW 4: PSYCHOLOGY REPORT -->
+      <section id="view-report" class="dashboard-view">
+        <div class="view-header">
+          <h2>Trader Psychology Diagnostics</h2>
+          <p>Request an AI-driven, interpretable behavioral diagnostic report based on your live session trade patterns.</p>
+        </div>
+
+        <div class="report-controls-card">
+          <button id="generate-report-btn" class="btn btn-primary btn-large">
+            <i class="fa-solid fa-wand-magic-sparkles mr-2"></i> Generate Psychology Diagnostics Report
+          </button>
+          <span class="report-status-desc">Generates instantly under 5 seconds. Analyzes all 19 metrics.</span>
+        </div>
+
+        <!-- REPORT VIEW AREA (HIDDEN UNTIL GENERATED) -->
+        <div id="report-view-container" class="report-view-layout hidden">
+          
+          <div class="grid-card report-header-block">
+            <div class="report-title-row">
+              <div>
+                <span class="diagnostics-tag">Psychological Diagnostics</span>
+                <h1>Trader Profile Analysis</h1>
+                <p id="report-date" class="text-muted">Generated: --</p>
+              </div>
+              <div class="report-overall-score">
+                <div class="score-ring">
+                  <svg width="120" height="120">
+                    <circle class="bg" cx="60" cy="60" r="50"></circle>
+                    <circle id="score-ring-progress" class="progress" cx="60" cy="60" r="50" style="stroke-dashoffset: 314;"></circle>
+                  </svg>
+                  <div class="score-text">
+                    <span id="report-score-val">0</span>
+                    <span class="score-max">/100</span>
+                  </div>
+                </div>
+                <div class="score-label">Overall Discipline</div>
+              </div>
+            </div>
+
+            <div class="classification-strip mt-4">
+              <div class="strip-label">Trader Classification Type:</div>
+              <div id="report-trader-type" class="classification-val">Disciplined Trader</div>
+            </div>
+
+            <div class="report-summary-box mt-4">
+              <h4>Behavioral Analysis Profile</h4>
+              <p id="report-summary-text">Execute trades in the simulator to generate your psychological profile report. This summary will explain your patterns.</p>
+            </div>
+          </div>
+
+          <div class="report-sub-grid mt-4">
+            
+            <!-- Left Column: Scores & Drivers -->
+            <div class="report-column-left">
+              <!-- Score breakdown -->
+              <div class="grid-card">
+                <h3>Behavioral Dimension Scores</h3>
+                
+                <div class="score-breakdown-row">
+                  <div class="score-title">
+                    <span>Discipline Score</span>
+                    <span id="score-discipline">0/100</span>
+                  </div>
+                  <div class="progress-bar-bg"><div id="score-bar-discipline" class="progress-bar" style="width: 0%"></div></div>
+                  <p class="score-desc">Measures position size consistency, holding period variance, and trading volume limits.</p>
+                </div>
+
+                <div class="score-breakdown-row mt-3">
+                  <div class="score-title">
+                    <span>Emotional Stability</span>
+                    <span id="score-emotional">0/100</span>
+                  </div>
+                  <div class="progress-bar-bg"><div id="score-bar-emotional" class="progress-bar emotional" style="width: 0%"></div></div>
+                  <p class="score-desc">Evaluates post-loss behavior, sizing changes after losses, and cool-down breaks.</p>
+                </div>
+
+                <div class="score-breakdown-row mt-3">
+                  <div class="score-title">
+                    <span>Risk Management</span>
+                    <span id="score-risk">0/100</span>
+                  </div>
+                  <div class="progress-bar-bg"><div id="score-bar-risk" class="progress-bar risk" style="width: 0%"></div></div>
+                  <p class="score-desc">Based on average position size limits, sizing variance, and win/loss size scaling ratios.</p>
+                </div>
+
+                <div class="score-breakdown-row mt-3">
+                  <div class="score-title">
+                    <span>Consistency Score</span>
+                    <span id="score-consistency">0/100</span>
+                  </div>
+                  <div class="progress-bar-bg"><div id="score-bar-consistency" class="progress-bar consistency" style="width: 0%"></div></div>
+                  <p class="score-desc">Monitors holding consistency, win/loss streak balancing, and trade gaps.</p>
+                </div>
+              </div>
+
+              <!-- Top Drivers -->
+              <div class="grid-card mt-4">
+                <h3>Top 5 Behavioral Drivers</h3>
+                <p class="text-muted small mb-3">These 5 metrics deviated the most from standard professional benchmarks, shaping your classification:</p>
+                <ol id="report-drivers-list" class="drivers-ordered-list">
+                  <!-- Injected by JS -->
+                </ol>
+              </div>
+            </div>
+
+            <!-- Right Column: Strengths, Weaknesses & Recommendations -->
+            <div class="report-column-right">
+              
+              <!-- Strengths -->
+              <div class="grid-card strengths-card">
+                <h3><i class="fa-solid fa-circle-check text-success mr-2"></i> Behavioral Strengths</h3>
+                <div id="report-strengths-container" class="sw-list">
+                  <!-- Injected by JS -->
+                </div>
+              </div>
+
+              <!-- Weaknesses -->
+              <div class="grid-card weaknesses-card mt-4">
+                <h3><i class="fa-solid fa-triangle-exclamation text-danger mr-2"></i> Behavioral Blindspots</h3>
+                <div id="report-weaknesses-container" class="sw-list">
+                  <!-- Injected by JS -->
+                </div>
+              </div>
+
+              <!-- Recommendations -->
+              <div class="grid-card recommendations-card mt-4">
+                <h3><i class="fa-solid fa-lightbulb text-warning mr-2"></i> Actionable Coaching Recommendations</h3>
+                <ul id="report-recommendations-list" class="recommendations-checklist">
+                  <!-- Injected by JS -->
+                </ul>
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- Bottom detailed table -->
+          <div class="grid-card mt-4">
+            <h3>Detailed Behavioral Metrics</h3>
+            <div class="table-responsive">
+              <table class="report-metrics-table">
+                <thead>
+                  <tr>
+                    <th>Psychology Vector</th>
+                    <th>Measured Metric</th>
+                    <th>Ideal Target Baseline</th>
+                    <th>Result Category</th>
+                  </tr>
+                </thead>
+                <tbody id="report-metrics-tbody">
+                  <!-- Injected by JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

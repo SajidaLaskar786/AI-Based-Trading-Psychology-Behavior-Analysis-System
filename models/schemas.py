@@ -6,6 +6,15 @@ Defines the structured output format for trader psychology reports.
 from pydantic import BaseModel, Field
 from typing import List, Optional
 
+class Notification(BaseModel):
+    id: str
+    type: str
+    severity: str
+    title: str
+    message: str
+    metric_value: str
+    threshold: str
+
 
 class TraderProfile(BaseModel):
     """Trader personality classification based on behavioral analysis."""
@@ -73,6 +82,7 @@ class AnalysisReport(BaseModel):
     loss_analysis: List[LossCause]
     future_risks: List[FutureRisk]
     summary_stats: SummaryStats
+    notifications: Optional[List[Notification]] = []
 
 
 class ErrorResponse(BaseModel):

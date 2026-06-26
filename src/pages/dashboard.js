@@ -26,6 +26,7 @@ export function render() {
           <span class="topbar-brand">TradePsych AI</span>
         </div>
         <div class="topbar-right">
+          <a href="#/simulation" class="btn-ghost" style="margin-right: 15px; font-size: var(--fs-sm); padding: 6px 12px; border-radius: 6px; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; color: var(--clr-primary-light); background: rgba(124, 92, 252, 0.1); border: 1px solid rgba(124, 92, 252, 0.2);">Live Simulation 📈</a>
           <div class="topbar-user">
             <div class="topbar-avatar">${initials}</div>
             <span>${name}</span>

@@ -5,10 +5,13 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:all": "concurrently \"npm run dev\" \"node Stock_Simulation/server.js\" \"uvicorn main:app --reload\"",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
   "devDependencies": {
+    "concurrently": "^10.0.3",
+    "localtunnel": "^2.0.2",
     "typescript": "~6.0.2",
     "vite": "^8.0.12"
   },

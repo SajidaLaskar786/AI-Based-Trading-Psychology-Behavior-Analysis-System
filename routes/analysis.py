@@ -18,6 +18,7 @@ from services.file_parser import parse_trading_file, FileParsingError, _read_fil
 from services.analyzer import TradingAnalyzer
 from services.report_generator import generate_report
 from src.feature_engineering.generate_features import generate_features
+from services.notifications import NotificationEngine
 
 logger = logging.getLogger(__name__)
 
@@ -467,6 +468,15 @@ async def analyze_trading_history(
             description=profile_desc
         )
         report.feature_importance = feature_importance_list
+
+        # ── Step 7: Notification Engine ──
+        try:
+            notif_engine = NotificationEngine(df_round_trip)
+            alerts_data = notif_engine.evaluate()
+            report.notifications = alerts_data
+        except Exception as e:
+            logger.exception(f"Unexpected error during notification evaluation: {e}")
+            report.notifications = []
 
         logger.info(
             f"Analysis complete for '{file.filename}' (ML model): "

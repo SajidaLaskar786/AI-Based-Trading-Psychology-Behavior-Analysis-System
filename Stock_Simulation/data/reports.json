@@ -1,0 +1,836 @@
+[
+  {
+    "reportId": "rep_sktpnar95",
+    "username": "inarat",
+    "createdAt": "2026-06-11T06:28:02.243Z",
+    "simulationDate": "2026-01-11T09:30:00.000Z",
+    "features": {
+      "win_rate": 0,
+      "avg_profit": 0,
+      "avg_loss": 0,
+      "profit_factor": 0,
+      "avg_return_pct": 0,
+      "avg_holding_days": 0,
+      "holding_variance": 0,
+      "trades_per_month": 10,
+      "avg_trades_per_day": 1,
+      "avg_gap_between_trades": 0,
+      "same_day_trade_ratio": 0,
+      "avg_position_size": 30921.6,
+      "position_size_variance": 0,
+      "risk_escalation_ratio": 1,
+      "post_loss_position_change": 0,
+      "post_loss_trade_delay": 0,
+      "pnl_std": 0,
+      "max_win_streak": 0,
+      "max_loss_streak": 0
+    },
+    "scores": {
+      "discipline": 100,
+      "emotionalStability": 100,
+      "riskManagement": 100,
+      "consistency": 100,
+      "overall": 100
+    },
+    "traderType": "Disciplined Trader",
+    "strengths": [
+      {
+        "title": "Sizing Consistency",
+        "metric": "Size CV: 0%",
+        "desc": "You maintain highly consistent position sizes, preventing individual trades from causing outsized losses."
+      },
+      {
+        "title": "Market Exploration",
+        "metric": "Connected Markets",
+        "desc": "You actively select and monitor diverse stocks to find high-probability setups."
+      },
+      {
+        "title": "Active Risk Monitoring",
+        "metric": "Real-time Tracker",
+        "desc": "You trade within the scope of your dashboard, keeping tabs on your balance changes."
+      }
+    ],
+    "weaknesses": [
+      {
+        "title": "Incomplete Trade Maturity",
+        "metric": "N/A",
+        "desc": "You exit trades too early to capture significant trends, restricting maximum yield."
+      },
+      {
+        "title": "Limited Session History",
+        "metric": "Low trade volume",
+        "desc": "You have executed few trades, making it difficult for the model to establish baseline habits."
+      },
+      {
+        "title": "Unbalanced Asset Diversification",
+        "metric": "Concentrated Portfolio",
+        "desc": "You focus heavily on a single market, missing out on diversifiable hedging."
+      }
+    ],
+    "recommendations": [
+      "Refine Entry Criteria: Limit trades to highly liquid US/NSE large caps. Do not trade crypto during high intraday volatility spikes.",
+      "Keep a Trading Log: Note the specific reason (momentum, value, chart pattern) for every entry.",
+      "Review Market Volatility: Check historical daily candlesticks to identify support and resistance ranges.",
+      "Maintain Sizing Discipline: Do not increase your risk size after a profitable trade out of overconfidence."
+    ],
+    "topDrivers": [
+      {
+        "name": "Win Rate",
+        "explanation": "Low win rate is placing significant drag on overall portfolio returns.",
+        "value": 0
+      },
+      {
+        "name": "Profit Factor",
+        "explanation": "A low profit factor means losing trades are consuming too much of your gains.",
+        "value": 0
+      },
+      {
+        "name": "Average Holding Days",
+        "explanation": "Short holding periods indicate active scalping and vulnerability to noise.",
+        "value": 0
+      },
+      {
+        "name": "Same Day Trade Ratio",
+        "explanation": "Low same-day trading shows willingness to hold positions overnight.",
+        "value": 0
+      },
+      {
+        "name": "Position Size Variance",
+        "explanation": "Consistent sizing models illustrate professional capital management.",
+        "value": 0
+      }
+    ],
+    "reportText": "TRADER PSYCHOLOGY REPORT\n\nOverall Score: 100/100\n\nTrader Type: Disciplined Trader\n\nBehavior Analysis: You execute trades with high consistency, sizing your positions carefully and avoiding emotional reactions after wins or losses. You demonstrate solid tactical discipline, maintaining consistent risk controls and emotional stability.\n\nTop Behavioral Drivers:\n1. Win Rate: Low win rate is placing significant drag on overall portfolio returns.\n2. Profit Factor: A low profit factor means losing trades are consuming too much of your gains.\n3. Average Holding Days: Short holding periods indicate active scalping and vulnerability to noise.\n4. Same Day Trade Ratio: Low same-day trading shows willingness to hold positions overnight.\n5. Position Size Variance: Consistent sizing models illustrate professional capital management.\n\nStrengths:\n✓ Sizing Consistency: You maintain highly consistent position sizes, preventing individual trades from causing outsized losses. (Size CV: 0%)\n✓ Market Exploration: You actively select and monitor diverse stocks to find high-probability setups. (Connected Markets)\n✓ Active Risk Monitoring: You trade within the scope of your dashboard, keeping tabs on your balance changes. (Real-time Tracker)\n\nWeaknesses:\n✗ Incomplete Trade Maturity: You exit trades too early to capture significant trends, restricting maximum yield. (N/A)\n✗ Limited Session History: You have executed few trades, making it difficult for the model to establish baseline habits. (Low trade volume)\n✗ Unbalanced Asset Diversification: You focus heavily on a single market, missing out on diversifiable hedging. (Concentrated Portfolio)\n\nRecommendations:\n• Refine Entry Criteria: Limit trades to highly liquid US/NSE large caps. Do not trade crypto during high intraday volatility spikes.\n• Keep a Trading Log: Note the specific reason (momentum, value, chart pattern) for every entry.\n• Review Market Volatility: Check historical daily candlesticks to identify support and resistance ranges.\n• Maintain Sizing Discipline: Do not increase your risk size after a profitable trade out of overconfidence.\n\nDetailed Metrics:\n- Discipline Score: 100\n- Emotional Stability: 100\n- Risk Management: 100\n- Consistency Score: 100\n- Win Rate: 0%\n- Profit Factor: 0\n- Average Holding Days: 0.00\n"
+  },
+  {
+    "reportId": "rep_muyls9ovo",
+    "username": "inarat",
+    "createdAt": "2026-06-11T06:29:13.546Z",
+    "simulationDate": "2026-01-13T09:30:00.000Z",
+    "features": {
+      "win_rate": 0,
+      "avg_profit": 0,
+      "avg_loss": 0,
+      "profit_factor": 0,
+      "avg_return_pct": 0,
+      "avg_holding_days": 0,
+      "holding_variance": 0,
+      "trades_per_month": 30,
+      "avg_trades_per_day": 1,
+      "avg_gap_between_trades": 0,
+      "same_day_trade_ratio": 0,
+      "avg_position_size": 28046.36,
+      "position_size_variance": 17117.54,
+      "risk_escalation_ratio": 1,
+      "post_loss_position_change": 0,
+      "post_loss_trade_delay": 0,
+      "pnl_std": 0,
+      "max_win_streak": 0,
+      "max_loss_streak": 0
+    },
+    "scores": {
+      "discipline": 69,
+      "emotionalStability": 100,
+      "riskManagement": 100,
+      "consistency": 100,
+      "overall": 92
+    },
+    "traderType": "Conservative / Risk-Averse Trader",
+    "strengths": [
+      {
+        "title": "Capital Preservation",
+        "metric": "₹10,00,000 start",
+        "desc": "You maintain a defensive stance, protecting your virtual capital from major early drawdowns."
+      },
+      {
+        "title": "Market Exploration",
+        "metric": "Connected Markets",
+        "desc": "You actively select and monitor diverse stocks to find high-probability setups."
+      },
+      {
+        "title": "Active Risk Monitoring",
+        "metric": "Real-time Tracker",
+        "desc": "You trade within the scope of your dashboard, keeping tabs on your balance changes."
+      }
+    ],
+    "weaknesses": [
+      {
+        "title": "Erratic Position Sizes",
+        "metric": "Size Variance: ₹17,117.54",
+        "desc": "Your trade sizes differ widely, exposing your account to unpredictable risk swings."
+      },
+      {
+        "title": "Limited Session History",
+        "metric": "Low trade volume",
+        "desc": "You have executed few trades, making it difficult for the model to establish baseline habits."
+      },
+      {
+        "title": "Unbalanced Asset Diversification",
+        "metric": "Concentrated Portfolio",
+        "desc": "You focus heavily on a single market, missing out on diversifiable hedging."
+      }
+    ],
+    "recommendations": [
+      "Standardize Sizing: Set a fixed exposure target of 3% (₹30,000) per trade. Do not deviate by more than 10% from this amount.",
+      "Refine Entry Criteria: Limit trades to highly liquid US/NSE large caps. Do not trade crypto during high intraday volatility spikes.",
+      "Review Market Volatility: Check historical daily candlesticks to identify support and resistance ranges.",
+      "Maintain Sizing Discipline: Do not increase your risk size after a profitable trade out of overconfidence."
+    ],
+    "topDrivers": [
+      {
+        "name": "Win Rate",
+        "explanation": "Low win rate is placing significant drag on overall portfolio returns.",
+        "value": 0
+      },
+      {
+        "name": "Profit Factor",
+        "explanation": "A low profit factor means losing trades are consuming too much of your gains.",
+        "value": 0
+      },
+      {
+        "name": "Average Holding Days",
+        "explanation": "Short holding periods indicate active scalping and vulnerability to noise.",
+        "value": 0
+      },
+      {
+        "name": "Same Day Trade Ratio",
+        "explanation": "Low same-day trading shows willingness to hold positions overnight.",
+        "value": 0
+      },
+      {
+        "name": "Post-Loss Trade Delay",
+        "explanation": "Impulsive, immediate re-entry after losses leads to rapid capital depletion.",
+        "value": 0
+      }
+    ],
+    "reportText": "TRADER PSYCHOLOGY REPORT\n\nOverall Score: 92/100\n\nTrader Type: Conservative / Risk-Averse Trader\n\nBehavior Analysis: You focus heavily on capital preservation, keeping position sizes small and maintaining tight control over exposure. You demonstrate solid tactical discipline, maintaining consistent risk controls and emotional stability.\n\nTop Behavioral Drivers:\n1. Win Rate: Low win rate is placing significant drag on overall portfolio returns.\n2. Profit Factor: A low profit factor means losing trades are consuming too much of your gains.\n3. Average Holding Days: Short holding periods indicate active scalping and vulnerability to noise.\n4. Same Day Trade Ratio: Low same-day trading shows willingness to hold positions overnight.\n5. Post-Loss Trade Delay: Impulsive, immediate re-entry after losses leads to rapid capital depletion.\n\nStrengths:\n✓ Capital Preservation: You maintain a defensive stance, protecting your virtual capital from major early drawdowns. (₹10,00,000 start)\n✓ Market Exploration: You actively select and monitor diverse stocks to find high-probability setups. (Connected Markets)\n✓ Active Risk Monitoring: You trade within the scope of your dashboard, keeping tabs on your balance changes. (Real-time Tracker)\n\nWeaknesses:\n✗ Erratic Position Sizes: Your trade sizes differ widely, exposing your account to unpredictable risk swings. (Size Variance: ₹17,117.54)\n✗ Limited Session History: You have executed few trades, making it difficult for the model to establish baseline habits. (Low trade volume)\n✗ Unbalanced Asset Diversification: You focus heavily on a single market, missing out on diversifiable hedging. (Concentrated Portfolio)\n\nRecommendations:\n• Standardize Sizing: Set a fixed exposure target of 3% (₹30,000) per trade. Do not deviate by more than 10% from this amount.\n• Refine Entry Criteria: Limit trades to highly liquid US/NSE large caps. Do not trade crypto during high intraday volatility spikes.\n• Review Market Volatility: Check historical daily candlesticks to identify support and resistance ranges.\n• Maintain Sizing Discipline: Do not increase your risk size after a profitable trade out of overconfidence.\n\nDetailed Metrics:\n- Discipline Score: 69\n- Emotional Stability: 100\n- Risk Management: 100\n- Consistency Score: 100\n- Win Rate: 0%\n- Profit Factor: 0\n- Average Holding Days: 0.00\n"
+  },
+  {
+    "reportId": "rep_vizx1jbew",
+    "username": "saji",
+    "createdAt": "2026-06-11T06:30:52.575Z",
+    "simulationDate": "2026-01-17T09:30:00.000Z",
+    "features": {
+      "win_rate": 0,
+      "avg_profit": 0,
+      "avg_loss": 0,
+      "profit_factor": 0,
+      "avg_return_pct": 0,
+      "avg_holding_days": 0,
+      "holding_variance": 0,
+      "trades_per_month": 110,
+      "avg_trades_per_day": 5.5,
+      "avg_gap_between_trades": 0,
+      "same_day_trade_ratio": 0,
+      "avg_position_size": 12053.81,
+      "position_size_variance": 11801.89,
+      "risk_escalation_ratio": 1,
+      "post_loss_position_change": 0,
+      "post_loss_trade_delay": 0,
+      "pnl_std": 0,
+      "max_win_streak": 0,
+      "max_loss_streak": 0
+    },
+    "scores": {
+      "discipline": 36,
+      "emotionalStability": 100,
+      "riskManagement": 100,
+      "consistency": 100,
+      "overall": 84
+    },
+    "traderType": "Conservative / Risk-Averse Trader",
+    "strengths": [
+      {
+        "title": "Capital Preservation",
+        "metric": "₹10,00,000 start",
+        "desc": "You maintain a defensive stance, protecting your virtual capital from major early drawdowns."
+      },
+      {
+        "title": "Market Exploration",
+        "metric": "Connected Markets",
+        "desc": "You actively select and monitor diverse stocks to find high-probability setups."
+      },
+      {
+        "title": "Active Risk Monitoring",
+        "metric": "Real-time Tracker",
+        "desc": "You trade within the scope of your dashboard, keeping tabs on your balance changes."
+      }
+    ],
+    "weaknesses": [
+      {
+        "title": "Erratic Position Sizes",
+        "metric": "Size Variance: ₹11,801.89",
+        "desc": "Your trade sizes differ widely, exposing your account to unpredictable risk swings."
+      },
+      {
+        "title": "Limited Session History",
+        "metric": "Low trade volume",
+        "desc": "You have executed few trades, making it difficult for the model to establish baseline habits."
+      },
+      {
+        "title": "Unbalanced Asset Diversification",
+        "metric": "Concentrated Portfolio",
+        "desc": "You focus heavily on a single market, missing out on diversifiable hedging."
+      }
+    ],
+    "recommendations": [
+      "Standardize Sizing: Set a fixed exposure target of 3% (₹30,000) per trade. Do not deviate by more than 10% from this amount.",
+      "Refine Entry Criteria: Limit trades to highly liquid US/NSE large caps. Do not trade crypto during high intraday volatility spikes.",
+      "Review Market Volatility: Check historical daily candlesticks to identify support and resistance ranges.",
+      "Maintain Sizing Discipline: Do not increase your risk size after a profitable trade out of overconfidence."
+    ],
+    "topDrivers": [
+      {
+        "name": "Win Rate",
+        "explanation": "Low win rate is placing significant drag on overall portfolio returns.",
+        "value": 0
+      },
+      {
+        "name": "Profit Factor",
+        "explanation": "A low profit factor means losing trades are consuming too much of your gains.",
+        "value": 0
+      },
+      {
+        "name": "Average Holding Days",
+        "explanation": "Short holding periods indicate active scalping and vulnerability to noise.",
+        "value": 0
+      },
+      {
+        "name": "Same Day Trade Ratio",
+        "explanation": "Low same-day trading shows willingness to hold positions overnight.",
+        "value": 0
+      },
+      {
+        "name": "Post-Loss Trade Delay",
+        "explanation": "Impulsive, immediate re-entry after losses leads to rapid capital depletion.",
+        "value": 0
+      }
+    ],
+    "reportText": "TRADER PSYCHOLOGY REPORT\n\nOverall Score: 84/100\n\nTrader Type: Conservative / Risk-Averse Trader\n\nBehavior Analysis: You focus heavily on capital preservation, keeping position sizes small and maintaining tight control over exposure. You demonstrate solid tactical discipline, maintaining consistent risk controls and emotional stability.\n\nTop Behavioral Drivers:\n1. Win Rate: Low win rate is placing significant drag on overall portfolio returns.\n2. Profit Factor: A low profit factor means losing trades are consuming too much of your gains.\n3. Average Holding Days: Short holding periods indicate active scalping and vulnerability to noise.\n4. Same Day Trade Ratio: Low same-day trading shows willingness to hold positions overnight.\n5. Post-Loss Trade Delay: Impulsive, immediate re-entry after losses leads to rapid capital depletion.\n\nStrengths:\n✓ Capital Preservation: You maintain a defensive stance, protecting your virtual capital from major early drawdowns. (₹10,00,000 start)\n✓ Market Exploration: You actively select and monitor diverse stocks to find high-probability setups. (Connected Markets)\n✓ Active Risk Monitoring: You trade within the scope of your dashboard, keeping tabs on your balance changes. (Real-time Tracker)\n\nWeaknesses:\n✗ Erratic Position Sizes: Your trade sizes differ widely, exposing your account to unpredictable risk swings. (Size Variance: ₹11,801.89)\n✗ Limited Session History: You have executed few trades, making it difficult for the model to establish baseline habits. (Low trade volume)\n✗ Unbalanced Asset Diversification: You focus heavily on a single market, missing out on diversifiable hedging. (Concentrated Portfolio)\n\nRecommendations:\n• Standardize Sizing: Set a fixed exposure target of 3% (₹30,000) per trade. Do not deviate by more than 10% from this amount.\n• Refine Entry Criteria: Limit trades to highly liquid US/NSE large caps. Do not trade crypto during high intraday volatility spikes.\n• Review Market Volatility: Check historical daily candlesticks to identify support and resistance ranges.\n• Maintain Sizing Discipline: Do not increase your risk size after a profitable trade out of overconfidence.\n\nDetailed Metrics:\n- Discipline Score: 36\n- Emotional Stability: 100\n- Risk Management: 100\n- Consistency Score: 100\n- Win Rate: 0%\n- Profit Factor: 0\n- Average Holding Days: 0.00\n"
+  },
+  {
+    "reportId": "rep_qa13t8mm5",
+    "username": "ijjj",
+    "createdAt": "2026-06-11T06:36:57.390Z",
+    "simulationDate": "2026-01-29T09:30:00.000Z",
+    "features": {
+      "win_rate": 50,
+      "avg_profit": 26.97,
+      "avg_loss": 16.24,
+      "profit_factor": 1.66,
+      "avg_return_pct": 0.27,
+      "avg_holding_days": 0.001,
+      "holding_variance": 0,
+      "trades_per_month": 20,
+      "avg_trades_per_day": 2,
+      "avg_gap_between_trades": 0,
+      "same_day_trade_ratio": 100,
+      "avg_position_size": 2140.93,
+      "position_size_variance": 32.91,
+      "risk_escalation_ratio": 1,
+      "post_loss_position_change": 0,
+      "post_loss_trade_delay": 0,
+      "pnl_std": 21.6,
+      "max_win_streak": 1,
+      "max_loss_streak": 1
+    },
+    "scores": {
+      "discipline": 99,
+      "emotionalStability": 47,
+      "riskManagement": 86,
+      "consistency": 100,
+      "overall": 82
+    },
+    "traderType": "Conservative / Risk-Averse Trader",
+    "strengths": [
+      {
+        "title": "Sizing Consistency",
+        "metric": "Size CV: 2%",
+        "desc": "You maintain highly consistent position sizes, preventing individual trades from causing outsized losses."
+      },
+      {
+        "title": "High Profit Efficiency",
+        "metric": "Profit Factor: 1.66",
+        "desc": "Your winning trades generate significantly more profit than your losing trades drain, showing positive skew."
+      },
+      {
+        "title": "Post-Loss Risk Control",
+        "metric": "Post-Loss size change: 0%",
+        "desc": "You do not double down after losing trades, exhibiting professional composure and capital preservation."
+      },
+      {
+        "title": "Drawdown Resilience",
+        "metric": "Max Loss Streak: 1",
+        "desc": "You successfully limit consecutive losing streaks, helping protect your emotional capital."
+      }
+    ],
+    "weaknesses": [
+      {
+        "title": "Overactive Scalping",
+        "metric": "Same-Day Trade: 100%",
+        "desc": "You close most trades within the same simulation day, which risks overtrading and higher execution costs."
+      },
+      {
+        "title": "Limited Session History",
+        "metric": "Low trade volume",
+        "desc": "You have executed few trades, making it difficult for the model to establish baseline habits."
+      },
+      {
+        "title": "Unbalanced Asset Diversification",
+        "metric": "Concentrated Portfolio",
+        "desc": "You focus heavily on a single market, missing out on diversifiable hedging."
+      }
+    ],
+    "recommendations": [
+      "Extend Holding Periods: Avoid intra-day tick tracking. Practice keeping positions open for at least 2 simulation days.",
+      "Keep a Trading Log: Note the specific reason (momentum, value, chart pattern) for every entry.",
+      "Review Market Volatility: Check historical daily candlesticks to identify support and resistance ranges.",
+      "Maintain Sizing Discipline: Do not increase your risk size after a profitable trade out of overconfidence."
+    ],
+    "topDrivers": [
+      {
+        "name": "Same Day Trade Ratio",
+        "explanation": "High same-day trading increases transaction frictions and suggests impulse entries.",
+        "value": 100
+      },
+      {
+        "name": "Post-Loss Trade Delay",
+        "explanation": "Impulsive, immediate re-entry after losses leads to rapid capital depletion.",
+        "value": 0
+      },
+      {
+        "name": "Average Holding Days",
+        "explanation": "Short holding periods indicate active scalping and vulnerability to noise.",
+        "value": 0.001
+      },
+      {
+        "name": "Position Size Variance",
+        "explanation": "Consistent sizing models illustrate professional capital management.",
+        "value": 32.91
+      },
+      {
+        "name": "Average Position Size",
+        "explanation": "Small position sizes preserve capital but limit absolute growth potential.",
+        "value": 2140.93
+      }
+    ],
+    "reportText": "TRADER PSYCHOLOGY REPORT\n\nOverall Score: 82/100\n\nTrader Type: Conservative / Risk-Averse Trader\n\nBehavior Analysis: You focus heavily on capital preservation, keeping position sizes small and maintaining tight control over exposure. You demonstrate solid tactical discipline, maintaining consistent risk controls and emotional stability.\n\nTop Behavioral Drivers:\n1. Same Day Trade Ratio: High same-day trading increases transaction frictions and suggests impulse entries.\n2. Post-Loss Trade Delay: Impulsive, immediate re-entry after losses leads to rapid capital depletion.\n3. Average Holding Days: Short holding periods indicate active scalping and vulnerability to noise.\n4. Position Size Variance: Consistent sizing models illustrate professional capital management.\n5. Average Position Size: Small position sizes preserve capital but limit absolute growth potential.\n\nStrengths:\n✓ Sizing Consistency: You maintain highly consistent position sizes, preventing individual trades from causing outsized losses. (Size CV: 2%)\n✓ High Profit Efficiency: Your winning trades generate significantly more profit than your losing trades drain, showing positive skew. (Profit Factor: 1.66)\n✓ Post-Loss Risk Control: You do not double down after losing trades, exhibiting professional composure and capital preservation. (Post-Loss size change: 0%)\n\nWeaknesses:\n✗ Overactive Scalping: You close most trades within the same simulation day, which risks overtrading and higher execution costs. (Same-Day Trade: 100%)\n✗ Limited Session History: You have executed few trades, making it difficult for the model to establish baseline habits. (Low trade volume)\n✗ Unbalanced Asset Diversification: You focus heavily on a single market, missing out on diversifiable hedging. (Concentrated Portfolio)\n\nRecommendations:\n• Extend Holding Periods: Avoid intra-day tick tracking. Practice keeping positions open for at least 2 simulation days.\n• Keep a Trading Log: Note the specific reason (momentum, value, chart pattern) for every entry.\n• Review Market Volatility: Check historical daily candlesticks to identify support and resistance ranges.\n• Maintain Sizing Discipline: Do not increase your risk size after a profitable trade out of overconfidence.\n\nDetailed Metrics:\n- Discipline Score: 99\n- Emotional Stability: 47\n- Risk Management: 86\n- Consistency Score: 100\n- Win Rate: 50%\n- Profit Factor: 1.66\n- Average Holding Days: 0.00\n"
+  },
+  {
+    "reportId": "rep_5hj9saxac",
+    "username": "ijjj",
+    "createdAt": "2026-06-11T20:46:38.297Z",
+    "simulationDate": "2026-06-11T20:46:38.269Z",
+    "features": {
+      "win_rate": 37.5,
+      "avg_profit": 9.76,
+      "avg_loss": 417.6,
+      "profit_factor": 0.02,
+      "avg_return_pct": -6.98,
+      "avg_holding_days": 16.1845,
+      "holding_variance": 42.4411,
+      "trades_per_month": 1.81,
+      "avg_trades_per_day": 0.06,
+      "avg_gap_between_trades": 2.5,
+      "same_day_trade_ratio": 75,
+      "avg_position_size": 6193.89,
+      "position_size_variance": 6799.32,
+      "risk_escalation_ratio": 0.5,
+      "post_loss_position_change": 5812.09,
+      "post_loss_trade_delay": 87.146,
+      "pnl_std": 543.59,
+      "max_win_streak": 2,
+      "max_loss_streak": 2
+    },
+    "scores": {
+      "discipline": 5,
+      "emotionalStability": 54,
+      "riskManagement": 70,
+      "consistency": 55,
+      "overall": 47
+    },
+    "traderType": "Momentum Trader",
+    "strengths": [
+      {
+        "title": "Trade Maturity Patience",
+        "metric": "Holding Days: 16.2d",
+        "desc": "You give your trades space to breathe, capturing macro movements rather than panic selling."
+      },
+      {
+        "title": "Drawdown Resilience",
+        "metric": "Max Loss Streak: 2",
+        "desc": "You successfully limit consecutive losing streaks, helping protect your emotional capital."
+      },
+      {
+        "title": "Active Risk Monitoring",
+        "metric": "Real-time Tracker",
+        "desc": "You trade within the scope of your dashboard, keeping tabs on your balance changes."
+      }
+    ],
+    "weaknesses": [
+      {
+        "title": "Revenge Position Sizing",
+        "metric": "Size change after loss: +5812.09%",
+        "desc": "You increase your position size significantly after a loss, suggesting an emotional attempt to force market returns."
+      },
+      {
+        "title": "Erratic Position Sizes",
+        "metric": "Size Variance: ₹6,799.32",
+        "desc": "Your trade sizes differ widely, exposing your account to unpredictable risk swings."
+      },
+      {
+        "title": "Overactive Scalping",
+        "metric": "Same-Day Trade: 75%",
+        "desc": "You close most trades within the same simulation day, which risks overtrading and higher execution costs."
+      },
+      {
+        "title": "Sub-optimal Win Rate",
+        "metric": "Win Rate: 37.5%",
+        "desc": "Your trade accuracy is currently low. Focus on refining entry triggers and selecting high-liquidity stocks."
+      }
+    ],
+    "recommendations": [
+      "Cool-down Rule: Commit to a mandatory 1 simulation day (30 real seconds) pause immediately following a losing trade.",
+      "Standardize Sizing: Set a fixed exposure target of 3% (₹30,000) per trade. Do not deviate by more than 10% from this amount.",
+      "Extend Holding Periods: Avoid intra-day tick tracking. Practice keeping positions open for at least 2 simulation days.",
+      "Refine Entry Criteria: Limit trades to highly liquid US/NSE large caps. Do not trade crypto during high intraday volatility spikes."
+    ],
+    "topDrivers": [
+      {
+        "name": "Post-Loss Position Change",
+        "explanation": "Doubling down on size after losses indicates active revenge trading.",
+        "value": 5812.09
+      },
+      {
+        "name": "Post-Loss Trade Delay",
+        "explanation": "Taking gaps between trades allows emotional recovery and strategy resets.",
+        "value": 87.146
+      },
+      {
+        "name": "Average Holding Days",
+        "explanation": "Longer holding periods indicate patience and a focus on larger macro trends.",
+        "value": 16.1845
+      },
+      {
+        "name": "Same Day Trade Ratio",
+        "explanation": "High same-day trading increases transaction frictions and suggests impulse entries.",
+        "value": 75
+      },
+      {
+        "name": "Profit Factor",
+        "explanation": "A low profit factor means losing trades are consuming too much of your gains.",
+        "value": 0.02
+      }
+    ],
+    "reportText": "TRADER PSYCHOLOGY REPORT\n\nOverall Score: 47/100\n\nTrader Type: Momentum Trader\n\nBehavior Analysis: You display balanced trading patterns, participating in market trends with moderate trade frequency and holding periods. Your psychological profile indicates high-risk behaviors, including revenge trading, inconsistent sizing, or overtrading.\n\nTop Behavioral Drivers:\n1. Post-Loss Position Change: Doubling down on size after losses indicates active revenge trading.\n2. Post-Loss Trade Delay: Taking gaps between trades allows emotional recovery and strategy resets.\n3. Average Holding Days: Longer holding periods indicate patience and a focus on larger macro trends.\n4. Same Day Trade Ratio: High same-day trading increases transaction frictions and suggests impulse entries.\n5. Profit Factor: A low profit factor means losing trades are consuming too much of your gains.\n\nStrengths:\n✓ Trade Maturity Patience: You give your trades space to breathe, capturing macro movements rather than panic selling. (Holding Days: 16.2d)\n✓ Drawdown Resilience: You successfully limit consecutive losing streaks, helping protect your emotional capital. (Max Loss Streak: 2)\n✓ Active Risk Monitoring: You trade within the scope of your dashboard, keeping tabs on your balance changes. (Real-time Tracker)\n\nWeaknesses:\n✗ Revenge Position Sizing: You increase your position size significantly after a loss, suggesting an emotional attempt to force market returns. (Size change after loss: +5812.09%)\n✗ Erratic Position Sizes: Your trade sizes differ widely, exposing your account to unpredictable risk swings. (Size Variance: ₹6,799.32)\n✗ Overactive Scalping: You close most trades within the same simulation day, which risks overtrading and higher execution costs. (Same-Day Trade: 75%)\n\nRecommendations:\n• Cool-down Rule: Commit to a mandatory 1 simulation day (30 real seconds) pause immediately following a losing trade.\n• Standardize Sizing: Set a fixed exposure target of 3% (₹30,000) per trade. Do not deviate by more than 10% from this amount.\n• Extend Holding Periods: Avoid intra-day tick tracking. Practice keeping positions open for at least 2 simulation days.\n• Refine Entry Criteria: Limit trades to highly liquid US/NSE large caps. Do not trade crypto during high intraday volatility spikes.\n\nDetailed Metrics:\n- Discipline Score: 5\n- Emotional Stability: 54\n- Risk Management: 70\n- Consistency Score: 55\n- Win Rate: 37.5%\n- Profit Factor: 0.02\n- Average Holding Days: 16.18\n"
+  },
+  {
+    "reportId": "rep_f9drxw7w0",
+    "username": "ina",
+    "createdAt": "2026-06-12T06:12:53.687Z",
+    "simulationDate": "2026-06-12T06:12:53.646Z",
+    "features": {
+      "win_rate": 0,
+      "avg_profit": 0,
+      "avg_loss": 0,
+      "profit_factor": 0,
+      "avg_return_pct": 0,
+      "avg_holding_days": 0,
+      "holding_variance": 0,
+      "trades_per_month": 60,
+      "avg_trades_per_day": 15.38,
+      "avg_gap_between_trades": 0,
+      "same_day_trade_ratio": 0,
+      "avg_position_size": 4762.68,
+      "position_size_variance": 3768.23,
+      "risk_escalation_ratio": 1,
+      "post_loss_position_change": 0,
+      "post_loss_trade_delay": 0,
+      "pnl_std": 0,
+      "max_win_streak": 0,
+      "max_loss_streak": 0
+    },
+    "scores": {
+      "discipline": 15,
+      "emotionalStability": 100,
+      "riskManagement": 99,
+      "consistency": 100,
+      "overall": 79
+    },
+    "traderType": "Conservative / Risk-Averse Trader",
+    "strengths": [
+      {
+        "title": "Capital Preservation",
+        "metric": "₹10,00,000 start",
+        "desc": "You maintain a defensive stance, protecting your virtual capital from major early drawdowns."
+      },
+      {
+        "title": "Market Exploration",
+        "metric": "Connected Markets",
+        "desc": "You actively select and monitor diverse stocks to find high-probability setups."
+      },
+      {
+        "title": "Active Risk Monitoring",
+        "metric": "Real-time Tracker",
+        "desc": "You trade within the scope of your dashboard, keeping tabs on your balance changes."
+      }
+    ],
+    "weaknesses": [
+      {
+        "title": "Erratic Position Sizes",
+        "metric": "Size Variance: ₹3,768.23",
+        "desc": "Your trade sizes differ widely, exposing your account to unpredictable risk swings."
+      },
+      {
+        "title": "Limited Session History",
+        "metric": "Low trade volume",
+        "desc": "You have executed few trades, making it difficult for the model to establish baseline habits."
+      },
+      {
+        "title": "Unbalanced Asset Diversification",
+        "metric": "Concentrated Portfolio",
+        "desc": "You focus heavily on a single market, missing out on diversifiable hedging."
+      }
+    ],
+    "recommendations": [
+      "Standardize Sizing: Set a fixed exposure target of 3% (₹30,000) per trade. Do not deviate by more than 10% from this amount.",
+      "Refine Entry Criteria: Limit trades to highly liquid US/NSE large caps. Do not trade crypto during high intraday volatility spikes.",
+      "Review Market Volatility: Check historical daily candlesticks to identify support and resistance ranges.",
+      "Maintain Sizing Discipline: Do not increase your risk size after a profitable trade out of overconfidence."
+    ],
+    "topDrivers": [
+      {
+        "name": "Win Rate",
+        "explanation": "Low win rate is placing significant drag on overall portfolio returns.",
+        "value": 0
+      },
+      {
+        "name": "Profit Factor",
+        "explanation": "A low profit factor means losing trades are consuming too much of your gains.",
+        "value": 0
+      },
+      {
+        "name": "Average Holding Days",
+        "explanation": "Short holding periods indicate active scalping and vulnerability to noise.",
+        "value": 0
+      },
+      {
+        "name": "Same Day Trade Ratio",
+        "explanation": "Low same-day trading shows willingness to hold positions overnight.",
+        "value": 0
+      },
+      {
+        "name": "Post-Loss Trade Delay",
+        "explanation": "Impulsive, immediate re-entry after losses leads to rapid capital depletion.",
+        "value": 0
+      }
+    ],
+    "reportText": "TRADER PSYCHOLOGY REPORT\n\nOverall Score: 79/100\n\nTrader Type: Conservative / Risk-Averse Trader\n\nBehavior Analysis: You focus heavily on capital preservation, keeping position sizes small and maintaining tight control over exposure. You demonstrate solid tactical discipline, maintaining consistent risk controls and emotional stability.\n\nTop Behavioral Drivers:\n1. Win Rate: Low win rate is placing significant drag on overall portfolio returns.\n2. Profit Factor: A low profit factor means losing trades are consuming too much of your gains.\n3. Average Holding Days: Short holding periods indicate active scalping and vulnerability to noise.\n4. Same Day Trade Ratio: Low same-day trading shows willingness to hold positions overnight.\n5. Post-Loss Trade Delay: Impulsive, immediate re-entry after losses leads to rapid capital depletion.\n\nStrengths:\n✓ Capital Preservation: You maintain a defensive stance, protecting your virtual capital from major early drawdowns. (₹10,00,000 start)\n✓ Market Exploration: You actively select and monitor diverse stocks to find high-probability setups. (Connected Markets)\n✓ Active Risk Monitoring: You trade within the scope of your dashboard, keeping tabs on your balance changes. (Real-time Tracker)\n\nWeaknesses:\n✗ Erratic Position Sizes: Your trade sizes differ widely, exposing your account to unpredictable risk swings. (Size Variance: ₹3,768.23)\n✗ Limited Session History: You have executed few trades, making it difficult for the model to establish baseline habits. (Low trade volume)\n✗ Unbalanced Asset Diversification: You focus heavily on a single market, missing out on diversifiable hedging. (Concentrated Portfolio)\n\nRecommendations:\n• Standardize Sizing: Set a fixed exposure target of 3% (₹30,000) per trade. Do not deviate by more than 10% from this amount.\n• Refine Entry Criteria: Limit trades to highly liquid US/NSE large caps. Do not trade crypto during high intraday volatility spikes.\n• Review Market Volatility: Check historical daily candlesticks to identify support and resistance ranges.\n• Maintain Sizing Discipline: Do not increase your risk size after a profitable trade out of overconfidence.\n\nDetailed Metrics:\n- Discipline Score: 15\n- Emotional Stability: 100\n- Risk Management: 99\n- Consistency Score: 100\n- Win Rate: 0%\n- Profit Factor: 0\n- Average Holding Days: 0.00\n"
+  },
+  {
+    "reportId": "rep_9syjpzkif",
+    "username": "ina",
+    "createdAt": "2026-06-12T08:17:17.451Z",
+    "simulationDate": "2026-06-12T08:17:17.446Z",
+    "features": {
+      "win_rate": 65.12,
+      "avg_profit": 15.27,
+      "avg_loss": 3.35,
+      "profit_factor": 8.5,
+      "avg_return_pct": 0.07,
+      "avg_holding_days": 0.0973,
+      "holding_variance": 0.1535,
+      "trades_per_month": 450,
+      "avg_trades_per_day": 94.42,
+      "avg_gap_between_trades": 0,
+      "same_day_trade_ratio": 86.05,
+      "avg_position_size": 4265.72,
+      "position_size_variance": 3955.33,
+      "risk_escalation_ratio": 1,
+      "post_loss_position_change": 0,
+      "post_loss_trade_delay": 0,
+      "pnl_std": 33.28,
+      "max_win_streak": 8,
+      "max_loss_streak": 4
+    },
+    "scores": {
+      "discipline": 5,
+      "emotionalStability": 25,
+      "riskManagement": 96,
+      "consistency": 35,
+      "overall": 43
+    },
+    "traderType": "High-Frequency Trader",
+    "strengths": [
+      {
+        "title": "Execution Accuracy",
+        "metric": "Win Rate: 65.12%",
+        "desc": "Your strategy achieves high entry precision, resulting in more winning than losing trades."
+      },
+      {
+        "title": "High Profit Efficiency",
+        "metric": "Profit Factor: 8.5",
+        "desc": "Your winning trades generate significantly more profit than your losing trades drain, showing positive skew."
+      },
+      {
+        "title": "Post-Loss Risk Control",
+        "metric": "Post-Loss size change: 0%",
+        "desc": "You do not double down after losing trades, exhibiting professional composure and capital preservation."
+      }
+    ],
+    "weaknesses": [
+      {
+        "title": "Erratic Position Sizes",
+        "metric": "Size Variance: ₹3,955.33",
+        "desc": "Your trade sizes differ widely, exposing your account to unpredictable risk swings."
+      },
+      {
+        "title": "Overactive Scalping",
+        "metric": "Same-Day Trade: 86.05%",
+        "desc": "You close most trades within the same simulation day, which risks overtrading and higher execution costs."
+      },
+      {
+        "title": "Extended Losing Streaks",
+        "metric": "Loss Streak: 4",
+        "desc": "You hold losing trades or execute bad trades consecutively, amplifying drawdowns."
+      }
+    ],
+    "recommendations": [
+      "Standardize Sizing: Set a fixed exposure target of 3% (₹30,000) per trade. Do not deviate by more than 10% from this amount.",
+      "Extend Holding Periods: Avoid intra-day tick tracking. Practice keeping positions open for at least 2 simulation days.",
+      "Review Market Volatility: Check historical daily candlesticks to identify support and resistance ranges.",
+      "Maintain Sizing Discipline: Do not increase your risk size after a profitable trade out of overconfidence."
+    ],
+    "topDrivers": [
+      {
+        "name": "Profit Factor",
+        "explanation": "Strong risk-to-reward ratios ensure your winners far outweigh your losers.",
+        "value": 8.5
+      },
+      {
+        "name": "Same Day Trade Ratio",
+        "explanation": "High same-day trading increases transaction frictions and suggests impulse entries.",
+        "value": 86.05
+      },
+      {
+        "name": "Post-Loss Trade Delay",
+        "explanation": "Impulsive, immediate re-entry after losses leads to rapid capital depletion.",
+        "value": 0
+      },
+      {
+        "name": "Max Loss Streak",
+        "explanation": "Extended losing streaks represent failure to cut losses or stop trading.",
+        "value": 4
+      },
+      {
+        "name": "Average Holding Days",
+        "explanation": "Short holding periods indicate active scalping and vulnerability to noise.",
+        "value": 0.0973
+      }
+    ],
+    "reportText": "TRADER PSYCHOLOGY REPORT\n\nOverall Score: 43/100\n\nTrader Type: High-Frequency Trader\n\nBehavior Analysis: You enter and exit positions rapidly within the same simulation day, focusing on short-term price fluctuations rather than holding for extended trends. Your psychological profile indicates high-risk behaviors, including revenge trading, inconsistent sizing, or overtrading.\n\nTop Behavioral Drivers:\n1. Profit Factor: Strong risk-to-reward ratios ensure your winners far outweigh your losers.\n2. Same Day Trade Ratio: High same-day trading increases transaction frictions and suggests impulse entries.\n3. Post-Loss Trade Delay: Impulsive, immediate re-entry after losses leads to rapid capital depletion.\n4. Max Loss Streak: Extended losing streaks represent failure to cut losses or stop trading.\n5. Average Holding Days: Short holding periods indicate active scalping and vulnerability to noise.\n\nStrengths:\n✓ Execution Accuracy: Your strategy achieves high entry precision, resulting in more winning than losing trades. (Win Rate: 65.12%)\n✓ High Profit Efficiency: Your winning trades generate significantly more profit than your losing trades drain, showing positive skew. (Profit Factor: 8.5)\n✓ Post-Loss Risk Control: You do not double down after losing trades, exhibiting professional composure and capital preservation. (Post-Loss size change: 0%)\n\nWeaknesses:\n✗ Erratic Position Sizes: Your trade sizes differ widely, exposing your account to unpredictable risk swings. (Size Variance: ₹3,955.33)\n✗ Overactive Scalping: You close most trades within the same simulation day, which risks overtrading and higher execution costs. (Same-Day Trade: 86.05%)\n✗ Extended Losing Streaks: You hold losing trades or execute bad trades consecutively, amplifying drawdowns. (Loss Streak: 4)\n\nRecommendations:\n• Standardize Sizing: Set a fixed exposure target of 3% (₹30,000) per trade. Do not deviate by more than 10% from this amount.\n• Extend Holding Periods: Avoid intra-day tick tracking. Practice keeping positions open for at least 2 simulation days.\n• Review Market Volatility: Check historical daily candlesticks to identify support and resistance ranges.\n• Maintain Sizing Discipline: Do not increase your risk size after a profitable trade out of overconfidence.\n\nDetailed Metrics:\n- Discipline Score: 5\n- Emotional Stability: 25\n- Risk Management: 96\n- Consistency Score: 35\n- Win Rate: 65.12%\n- Profit Factor: 8.5\n- Average Holding Days: 0.10\n"
+  },
+  {
+    "reportId": "rep_4q2vieh7f",
+    "username": "ina",
+    "createdAt": "2026-06-21T15:18:02.712Z",
+    "simulationDate": "2026-06-21T15:18:02.680Z",
+    "features": {
+      "win_rate": 69.23,
+      "avg_profit": 11.28,
+      "avg_loss": 2.65,
+      "profit_factor": 10.93,
+      "avg_return_pct": 0.08,
+      "avg_holding_days": 0.5052,
+      "holding_variance": 1.6983,
+      "trades_per_month": 242.73,
+      "avg_trades_per_day": 7.98,
+      "avg_gap_between_trades": 0.0006,
+      "same_day_trade_ratio": 88.46,
+      "avg_position_size": 7397.2,
+      "position_size_variance": 26721.2,
+      "risk_escalation_ratio": 1.5,
+      "post_loss_position_change": 0,
+      "post_loss_trade_delay": 0,
+      "pnl_std": 26.93,
+      "max_win_streak": 16,
+      "max_loss_streak": 4
+    },
+    "scores": {
+      "discipline": 5,
+      "emotionalStability": 25,
+      "riskManagement": 70,
+      "consistency": 15,
+      "overall": 32
+    },
+    "traderType": "Momentum Trader",
+    "strengths": [
+      {
+        "title": "Execution Accuracy",
+        "metric": "Win Rate: 69.23%",
+        "desc": "Your strategy achieves high entry precision, resulting in more winning than losing trades."
+      },
+      {
+        "title": "High Profit Efficiency",
+        "metric": "Profit Factor: 10.93",
+        "desc": "Your winning trades generate significantly more profit than your losing trades drain, showing positive skew."
+      },
+      {
+        "title": "Post-Loss Risk Control",
+        "metric": "Post-Loss size change: 0%",
+        "desc": "You do not double down after losing trades, exhibiting professional composure and capital preservation."
+      }
+    ],
+    "weaknesses": [
+      {
+        "title": "Erratic Position Sizes",
+        "metric": "Size Variance: ₹26,721.2",
+        "desc": "Your trade sizes differ widely, exposing your account to unpredictable risk swings."
+      },
+      {
+        "title": "Overactive Scalping",
+        "metric": "Same-Day Trade: 88.46%",
+        "desc": "You close most trades within the same simulation day, which risks overtrading and higher execution costs."
+      },
+      {
+        "title": "Extended Losing Streaks",
+        "metric": "Loss Streak: 4",
+        "desc": "You hold losing trades or execute bad trades consecutively, amplifying drawdowns."
+      }
+    ],
+    "recommendations": [
+      "Standardize Sizing: Set a fixed exposure target of 3% (₹30,000) per trade. Do not deviate by more than 10% from this amount.",
+      "Extend Holding Periods: Avoid intra-day tick tracking. Practice keeping positions open for at least 2 simulation days.",
+      "Review Market Volatility: Check historical daily candlesticks to identify support and resistance ranges.",
+      "Maintain Sizing Discipline: Do not increase your risk size after a profitable trade out of overconfidence."
+    ],
+    "topDrivers": [
+      {
+        "name": "Profit Factor",
+        "explanation": "Strong risk-to-reward ratios ensure your winners far outweigh your losers.",
+        "value": 10.93
+      },
+      {
+        "name": "Same Day Trade Ratio",
+        "explanation": "High same-day trading increases transaction frictions and suggests impulse entries.",
+        "value": 88.46
+      },
+      {
+        "name": "Position Size Variance",
+        "explanation": "Highly inconsistent position sizing creates unpredictable risk exposure.",
+        "value": 26721.2
+      },
+      {
+        "name": "Post-Loss Trade Delay",
+        "explanation": "Impulsive, immediate re-entry after losses leads to rapid capital depletion.",
+        "value": 0
+      },
+      {
+        "name": "Max Loss Streak",
+        "explanation": "Extended losing streaks represent failure to cut losses or stop trading.",
+        "value": 4
+      }
+    ],
+    "reportText": "TRADER PSYCHOLOGY REPORT\n\nOverall Score: 32/100\n\nTrader Type: Momentum Trader\n\nBehavior Analysis: You hold positions across multiple days to capture short-term trends, keeping a positive win rate and risk-reward profile. Your psychological profile indicates high-risk behaviors, including revenge trading, inconsistent sizing, or overtrading.\n\nTop Behavioral Drivers:\n1. Profit Factor: Strong risk-to-reward ratios ensure your winners far outweigh your losers.\n2. Same Day Trade Ratio: High same-day trading increases transaction frictions and suggests impulse entries.\n3. Position Size Variance: Highly inconsistent position sizing creates unpredictable risk exposure.\n4. Post-Loss Trade Delay: Impulsive, immediate re-entry after losses leads to rapid capital depletion.\n5. Max Loss Streak: Extended losing streaks represent failure to cut losses or stop trading.\n\nStrengths:\n✓ Execution Accuracy: Your strategy achieves high entry precision, resulting in more winning than losing trades. (Win Rate: 69.23%)\n✓ High Profit Efficiency: Your winning trades generate significantly more profit than your losing trades drain, showing positive skew. (Profit Factor: 10.93)\n✓ Post-Loss Risk Control: You do not double down after losing trades, exhibiting professional composure and capital preservation. (Post-Loss size change: 0%)\n\nWeaknesses:\n✗ Erratic Position Sizes: Your trade sizes differ widely, exposing your account to unpredictable risk swings. (Size Variance: ₹26,721.2)\n✗ Overactive Scalping: You close most trades within the same simulation day, which risks overtrading and higher execution costs. (Same-Day Trade: 88.46%)\n✗ Extended Losing Streaks: You hold losing trades or execute bad trades consecutively, amplifying drawdowns. (Loss Streak: 4)\n\nRecommendations:\n• Standardize Sizing: Set a fixed exposure target of 3% (₹30,000) per trade. Do not deviate by more than 10% from this amount.\n• Extend Holding Periods: Avoid intra-day tick tracking. Practice keeping positions open for at least 2 simulation days.\n• Review Market Volatility: Check historical daily candlesticks to identify support and resistance ranges.\n• Maintain Sizing Discipline: Do not increase your risk size after a profitable trade out of overconfidence.\n\nDetailed Metrics:\n- Discipline Score: 5\n- Emotional Stability: 25\n- Risk Management: 70\n- Consistency Score: 15\n- Win Rate: 69.23%\n- Profit Factor: 10.93\n- Average Holding Days: 0.51\n"
+  }
+]

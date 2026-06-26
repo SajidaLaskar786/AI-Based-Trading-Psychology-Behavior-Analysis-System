@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>TradePsych AI — Investor Pitch Deck 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #08101f;
+    --bg2: #0d1a2e;
+    --glass: rgba(255,255,255,0.04);
+    --glass-border: rgba(255,255,255,0.08);
+    --primary: #7C5CFC;
+    --primary-light: #a38bfd;
+    --primary-glow: rgba(124,92,252,0.25);
+    --accent: #22d3ee;
+    --green: #10b981;
+    --red: #f43f5e;
+    --yellow: #f59e0b;
+    --text: #f1f5f9;
+    --text-muted: #94a3b8;
+    --text-dim: #64748b;
+    --font: 'Inter', sans-serif;
+    --font-head: 'Plus Jakarta Sans', sans-serif;
+  }
+
+  html, body { width: 100%; height: 100%; background: var(--bg); color: var(--text); font-family: var(--font); overflow: hidden; }
+
+  /* ── Slide Container ── */
+  .deck { position: relative; width: 100vw; height: 100vh; overflow: hidden; }
+  .slide {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    padding: 48px 64px;
+    opacity: 0; transform: translateX(60px);
+    transition: opacity .45s ease, transform .45s ease;
+    pointer-events: none;
+    background: radial-gradient(ellipse at 20% 10%, rgba(124,92,252,0.08) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 90%, rgba(34,211,238,0.05) 0%, transparent 60%),
+                var(--bg);
+  }
+  .slide.active { opacity: 1; transform: translateX(0); pointer-events: all; }
+  .slide.exit { opacity: 0; transform: translateX(-60px); }
+
+  /* ── Slide Number ── */
+  .slide-num {
+    position: absolute; top: 20px; right: 28px;
+    font-size: 11px; color: var(--text-dim); letter-spacing: .12em; text-transform: uppercase;
+  }
+
+  /* ── Logo Bar ── */
+  .logo-bar {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 32px;
+  }
+  .logo-icon {
+    width: 32px; height: 32px; background: linear-gradient(135deg, var(--primary), var(--accent));
+    border-radius: 8px; display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+  }
+  .logo-text { font-family: var(--font-head); font-weight: 700; font-size: 14px; color: var(--text-muted); letter-spacing: .05em; }
+
+  /* ── Typography ── */
+  .slide-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--primary-glow); border: 1px solid rgba(124,92,252,0.3);
+    border-radius: 20px; padding: 4px 14px; font-size: 11px; font-weight: 600;
+    color: var(--primary-light); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 16px;
+  }
+  h1.hero { font-family: var(--font-head); font-size: clamp(2.4rem, 4.5vw, 3.8rem); font-weight: 900; line-height: 1.1; letter-spacing: -.02em; }
+  h1.hero .grad { background: linear-gradient(135deg, #fff 30%, var(--primary-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  h2.slide-title { font-family: var(--font-head); font-size: clamp(1.5rem, 2.8vw, 2.2rem); font-weight: 800; line-height: 1.2; letter-spacing: -.015em; margin-bottom: 8px; }
+  h2.slide-title .accent { color: var(--primary-light); }
+  .tagline { font-size: clamp(1rem, 1.6vw, 1.25rem); color: var(--text-muted); font-weight: 400; line-height: 1.6; }
+  .sub { font-size: 13px; color: var(--text-dim); }
+
+  /* ── Glass Card ── */
+  .card {
+    background: var(--glass); border: 1px solid var(--glass-border);
+    border-radius: 16px; padding: 20px 24px;
+  }
+  .card-sm { border-radius: 12px; padding: 14px 18px; }
+
+  /* ── Grid Helpers ── */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+  .flex-row { display: flex; gap: 16px; }
+  .flex-col { display: flex; flex-direction: column; gap: 12px; }
+
+  /* ── Stat Pill ── */
+  .stat { text-align: center; }
+  .stat-val { font-family: var(--font-head); font-size: clamp(1.4rem, 2.5vw, 2rem); font-weight: 800; color: var(--primary-light); }
+  .stat-label { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+  /* ── Badge ── */
+  .badge { display: inline-block; border-radius: 6px; padding: 3px 10px; font-size: 11px; font-weight: 600; }
+  .badge-green { background: rgba(16,185,129,.15); color: var(--green); border: 1px solid rgba(16,185,129,.2); }
+  .badge-red { background: rgba(244,63,94,.12); color: var(--red); border: 1px solid rgba(244,63,94,.2); }
+  .badge-purple { background: var(--primary-glow); color: var(--primary-light); border: 1px solid rgba(124,92,252,.2); }
+  .badge-yellow { background: rgba(245,158,11,.12); color: var(--yellow); border: 1px solid rgba(245,158,11,.2); }
+
+  /* ── Table ── */
+  table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  th { font-weight: 600; color: var(--text-muted); text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--glass-border); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; }
+  td { padding: 9px 10px; border-bottom: 1px solid rgba(255,255,255,0.04); color: var(--text); }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+  td.check-yes { color: var(--green); font-weight: 700; font-size: 15px; }
+  td.check-no { color: var(--text-dim); font-size: 15px; }
+  td.highlight { font-weight: 700; color: var(--primary-light); }
+  .table-wrapper { overflow: hidden; border-radius: 12px; border: 1px solid var(--glass-border); }
+
+  /* ── Progress Bar ── */
+  .prog-bar { height: 6px; background: rgba(255,255,255,0.07); border-radius: 99px; overflow: hidden; margin-top: 6px; }
+  .prog-fill { height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--primary), var(--accent)); }
+
+  /* ── Quote Card ── */
+  .quote-card { position: relative; padding: 16px 18px; }
+  .quote-card::before { content: '"'; position: absolute; top: -6px; left: 14px; font-size: 60px; color: var(--primary-light); opacity: .2; font-family: Georgia, serif; line-height: 1; }
+  .quote-text { font-size: 13px; line-height: 1.65; color: var(--text); font-style: italic; padding-top: 12px; }
+  .quote-author { margin-top: 10px; font-size: 11.5px; font-weight: 600; color: var(--primary-light); }
+  .quote-role { font-size: 11px; color: var(--text-dim); }
+
+  /* ── Phase Timeline ── */
+  .phase { display: flex; gap: 14px; align-items: flex-start; }
+  .phase-dot { width: 32px; height: 32px; border-radius: 50%; background: var(--primary-glow); border: 2px solid var(--primary); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: var(--primary-light); flex-shrink: 0; margin-top: 2px; }
+  .phase-content h4 { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+  .phase-content p { font-size: 11.5px; color: var(--text-muted); line-height: 1.55; }
+
+  /* ── Nav ── */
+  .nav {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+    display: flex; align-items: center; gap: 12px;
+    background: rgba(13,26,46,0.85); backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border); border-radius: 40px;
+    padding: 8px 16px; z-index: 999;
+  }
+  .nav-btn {
+    width: 34px; height: 34px; border-radius: 50%; background: var(--glass);
+    border: 1px solid var(--glass-border); cursor: pointer; display: flex; align-items: center; justify-content: center;
+    color: var(--text); font-size: 14px; transition: background .2s, border-color .2s;
+  }
+  .nav-btn:hover { background: var(--primary-glow); border-color: var(--primary); }
+  .nav-counter { font-size: 12px; color: var(--text-muted); min-width: 44px; text-align: center; font-weight: 500; }
+  .nav-dots { display: flex; gap: 5px; }
+  .nav-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--text-dim); cursor: pointer; transition: background .2s, transform .2s; }
+  .nav-dot.active { background: var(--primary-light); transform: scale(1.4); }
+
+  /* ── Divider ── */
+  .divider { width: 48px; height: 3px; background: linear-gradient(90deg, var(--primary), var(--accent)); border-radius: 2px; margin: 10px 0 18px; }
+
+  /* ── Icon Circle ── */
+  .icon-circle { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 17px; background: var(--primary-glow); border: 1px solid rgba(124,92,252,.2); flex-shrink: 0; }
+
+  /* ── Specific Slide Styles ── */
+
+  /* Cover */
+  #s1 { justify-content: center; align-items: flex-start; }
+  #s1 .cover-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; width: 100%; }
+  #s1 .cover-left { display: flex; flex-direction: column; gap: 20px; }
+  #s1 .big-logo { font-family: var(--font-head); font-size: 3.8rem; font-weight: 900; background: linear-gradient(135deg, #fff 20%, var(--primary-light) 60%, var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1; }
+  #s1 .cover-right { display: flex; flex-direction: column; gap: 16px; }
+  #s1 .cover-pill { display: flex; align-items: center; gap: 12px; padding: 12px 18px; border-radius: 12px; }
+
+  /* Problem */
+  .pain-card { padding: 16px; border-radius: 12px; border: 1px solid var(--glass-border); background: var(--glass); }
+  .pain-icon { font-size: 24px; margin-bottom: 8px; }
+  .pain-title { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+  .pain-desc { font-size: 11.5px; color: var(--text-muted); line-height: 1.55; }
+
+  /* Market Size Circles */
+  .tam-ring { display: flex; flex-direction: column; gap: 1px; }
+  .tam-row { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 10px; }
+  .tam-row.tam { background: rgba(124,92,252,0.12); border: 1px solid rgba(124,92,252,0.2); }
+  .tam-row.sam { background: rgba(34,211,238,0.07); border: 1px solid rgba(34,211,238,0.15); }
+  .tam-row.som { background: rgba(16,185,129,0.07); border: 1px solid rgba(16,185,129,0.15); }
+  .tam-label { font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; width: 40px; flex-shrink: 0; }
+  .tam-val { font-family: var(--font-head); font-size: 1.3rem; font-weight: 800; }
+  .tam-desc { font-size: 11px; color: var(--text-muted); }
+
+  /* Pricing Tiers */
+  .tier { border-radius: 14px; padding: 18px; border: 1px solid var(--glass-border); background: var(--glass); }
+  .tier.featured { border-color: var(--primary); background: var(--primary-glow); }
+  .tier-price { font-family: var(--font-head); font-size: 1.6rem; font-weight: 900; color: var(--text); margin: 6px 0; }
+  .tier-name { font-size: 11px; text-transform: uppercase; letter-spacing: .1em; color: var(--text-muted); font-weight: 600; }
+  .tier-feat { font-size: 11px; color: var(--text-muted); margin-top: 8px; line-height: 1.7; }
+
+  /* Advantage Cards */
+  .adv-card { padding: 16px; border-radius: 14px; border: 1px solid var(--glass-border); background: var(--glass); }
+  .adv-num { font-family: var(--font-head); font-size: 1.8rem; font-weight: 900; color: var(--primary-light); opacity: .3; line-height: 1; }
+  .adv-title { font-size: 12.5px; font-weight: 700; margin-bottom: 4px; color: var(--text); }
+  .adv-desc { font-size: 11px; color: var(--text-muted); line-height: 1.6; }
+
+  /* Financial */
+  .fin-highlight { font-family: var(--font-head); font-size: 1.8rem; font-weight: 900; background: linear-gradient(135deg, var(--primary-light), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+  /* Print */
+  @media print {
+    .nav, .slide-num { display: none !important; }
+    .slide { position: relative !important; opacity: 1 !important; transform: none !important; page-break-after: always; height: 100vh; }
+    .deck { overflow: visible; height: auto; }
+  }
+
+  /* Scrollable slide content */
+  .slide-inner { flex: 1; overflow: hidden; display: flex; flex-direction: column; gap: 16px; }
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+
+  <!-- ══════════════════════ SLIDE 1: COVER ══════════════════════ -->
+  <div class="slide active" id="s1">
+    <div class="slide-num">1 / 12</div>
+    <div style="display:flex;flex-direction:column;justify-content:center;height:100%;gap:32px;">
+      <div style="display:grid;grid-template-columns:1.1fr 0.9fr;gap:60px;align-items:center;">
+        <div style="display:flex;flex-direction:column;gap:22px;">
+          <div class="slide-tag">🧠 Investor Pitch · 2026 · Confidential</div>
+          <div style="font-family:var(--font-head);font-size:clamp(2.8rem,5vw,4.4rem);font-weight:900;line-height:1.05;letter-spacing:-.03em;">
+            <span style="background:linear-gradient(135deg,#fff 10%,var(--primary-light) 55%,var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">TradePsych</span><br/>
+            <span style="color:#fff;">AI</span>
+          </div>
+          <div style="font-size:clamp(1.1rem,1.8vw,1.4rem);color:var(--text-muted);font-style:italic;font-weight:300;line-height:1.5;">
+            "Know Why You Lose<br/>Before You Lose Again."
+          </div>
+          <div class="divider"></div>
+          <div style="font-size:14px;color:var(--text-muted);line-height:1.7;">
+            AI-powered trading psychology analysis that turns<br/>behavioral blind spots into competitive edge.
+          </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:4px;">
+            <span class="badge badge-purple">Upload Your Trades</span>
+            <span class="badge badge-purple">Get Your Profile</span>
+            <span class="badge badge-purple">Trade Better</span>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:14px;">
+          <div class="card" style="padding:22px;border-color:rgba(124,92,252,0.25);">
+            <div style="font-size:32px;margin-bottom:12px;">🧠📈</div>
+            <div style="font-size:12px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;font-weight:600;margin-bottom:6px;">What We Do</div>
+            <div style="font-size:13.5px;line-height:1.7;color:var(--text);">Analyze a trader's P&L history using ML + behavioral psychology to detect biases, predict risks, and coach better habits.</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+            <div class="card card-sm" style="text-align:center;border-color:rgba(16,185,129,.2);">
+              <div style="font-size:1.3rem;font-weight:800;color:var(--green);">MVP</div>
+              <div style="font-size:10px;color:var(--text-dim);margin-top:2px;">Live Product</div>
+            </div>
+            <div class="card card-sm" style="text-align:center;border-color:rgba(124,92,252,.2);">
+              <div style="font-size:1.3rem;font-weight:800;color:var(--primary-light);">2025</div>
+              <div style="font-size:10px;color:var(--text-dim);margin-top:2px;">Founded</div>
+            </div>
+            <div class="card card-sm" style="text-align:center;border-color:rgba(34,211,238,.2);">
+              <div style="font-size:1.3rem;font-weight:800;color:var(--accent);">19+</div>
+              <div style="font-size:10px;color:var(--text-dim);margin-top:2px;">Behavioral Metrics</div>
+            </div>
+            <div class="card card-sm" style="text-align:center;border-color:rgba(245,158,11,.2);">
+              <div style="font-size:1.3rem;font-weight:800;color:var(--yellow);">5s</div>
+              <div style="font-size:10px;color:var(--text-dim);margin-top:2px;">Report Time</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════ SLIDE 2: PROBLEM ══════════════════════ -->
+  <div class="slide" id="s2">
+    <div class="slide-num">2 / 12</div>
+    <div class="logo-bar"><div class="logo-icon">🧠</div><div class="logo-text">TradePsych AI</div></div>
+    <div class="slide-tag">⚠️ The Problem</div>
+    <h2 class="slide-title">80% of retail traders lose money — not because of <span class="accent">bad strategy</span>, but because of bad psychology.</h2>
+    <div class="divider"></div>
+    <div class="slide-inner">
+      <div class="grid-3">
+        <div class="pain-card">
+          <div class="pain-icon">😤</div>
+          <div class="pain-title">Emotional Trading</div>
+          <div class="pain-desc">Traders revenge-trade, panic-exit, and FOMO into bad positions under stress — driven by emotion, not plan.</div>
+        </div>
+        <div class="pain-card">
+          <div class="pain-icon">📉</div>
+          <div class="pain-title">No Self-Awareness</div>
+          <div class="pain-desc">Brokers provide P&L reports but zero behavioral insight. Traders know their losses, not their <em>why</em>.</div>
+        </div>
+        <div class="pain-card">
+          <div class="pain-icon">🔁</div>
+          <div class="pain-title">Repeating Mistakes</div>
+          <div class="pain-desc">Without diagnosis, the same patterns repeat across hundreds of trades — costing real money every session.</div>
+        </div>
+      </div>
+      <div class="card" style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;border-color:rgba(244,63,94,.15);">
+        <div class="stat"><div class="stat-val" style="color:var(--red);">80%</div><div class="stat-label">Retail traders lose money in 3 yrs (SEBI 2023)</div></div>
+        <div class="stat"><div class="stat-val" style="color:var(--red);">72%</div><div class="stat-label">Losses attributed to behavioral bias, not markets</div></div>
+        <div class="stat"><div class="stat-val" style="color:var(--red);">89%</div><div class="stat-label">F&O traders lost money in FY22-23 (SEBI)</div></div>
+        <div class="stat"><div class="stat-val" style="color:var(--red);">₹1.1T</div><div class="stat-label">Lost annually by retail investors (NSE Data)</div></div>
+      </div>
+      <div class="card" style="border-color:rgba(124,92,252,.2);background:rgba(124,92,252,0.06);padding:16px 22px;">
+        <span style="font-size:22px;opacity:.4;font-family:Georgia,serif;">"</span>
+        <span style="font-size:14px;font-style:italic;color:var(--text);">The market doesn't beat the trader. The trader beats himself.</span>
+        <span style="font-size:12px;color:var(--primary-light);margin-left:10px;">— Jesse Livermore</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════ SLIDE 3: SOLUTION ══════════════════════ -->
+  <div class="slide" id="s3">
+    <div class="slide-num">3 / 12</div>
+    <div class="logo-bar"><div class="logo-icon">🧠</div><div class="logo-text">TradePsych AI</div></div>
+    <div class="slide-tag">💡 Solution & About the Business</div>
+    <h2 class="slide-title">The world's first <span class="accent">Behavioral Intelligence Platform</span> for retail traders.</h2>
+    <div class="divider"></div>
+    <div class="slide-inner">
+      <div class="grid-2">
+        <div class="flex-col">
+          <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:4px;">What We Do</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;gap:10px;align-items:flex-start;"><div class="icon-circle">🔍</div><div><div style="font-size:12.5px;font-weight:600;margin-bottom:2px;">Detect</div><div style="font-size:11px;color:var(--text-muted);">Revenge trading, FOMO, panic exits, overtrading, overconfidence</div></div></div>
+            <div style="display:flex;gap:10px;align-items:flex-start;"><div class="icon-circle">🧠</div><div><div style="font-size:12.5px;font-weight:600;margin-bottom:2px;">Classify</div><div style="font-size:11px;color:var(--text-muted);">ML-powered trader profile with confidence scoring</div></div></div>
+            <div style="display:flex;gap:10px;align-items:flex-start;"><div class="icon-circle">📊</div><div><div style="font-size:12.5px;font-weight:600;margin-bottom:2px;">Explain</div><div style="font-size:11px;color:var(--text-muted);">Which behaviors cost you money — in exact ₹ amounts</div></div></div>
+            <div style="display:flex;gap:10px;align-items:flex-start;"><div class="icon-circle">🔮</div><div><div style="font-size:12.5px;font-weight:600;margin-bottom:2px;">Predict</div><div style="font-size:11px;color:var(--text-muted);">Harmful patterns likely to recur before they do</div></div></div>
+            <div style="display:flex;gap:10px;align-items:flex-start;"><div class="icon-circle">🎮</div><div><div style="font-size:12.5px;font-weight:600;margin-bottom:2px;">Train</div><div style="font-size:11px;color:var(--text-muted);">Build better habits in a real-time simulation environment</div></div></div>
+          </div>
+        </div>
+        <div class="flex-col">
+          <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:4px;">Two Core Products</div>
+          <div class="card" style="border-color:rgba(124,92,252,.2);padding:16px;">
+            <div style="font-size:12px;font-weight:700;color:var(--primary-light);margin-bottom:6px;">📂 Upload & Analyze</div>
+            <div style="font-size:11.5px;color:var(--text-muted);">Upload brokerage P&L → instant AI psychology report in 5 seconds</div>
+            <div style="margin-top:8px;"><span class="badge badge-purple">Diagnose the Past</span></div>
+          </div>
+          <div class="card" style="border-color:rgba(34,211,238,.2);padding:16px;">
+            <div style="font-size:12px;font-weight:700;color:var(--accent);margin-bottom:6px;">🎮 Live Simulator</div>
+            <div style="font-size:11.5px;color:var(--text-muted);">Trade ₹10L virtual capital across NSE/NASDAQ/Crypto with real-time behavioral coaching</div>
+            <div style="margin-top:8px;"><span class="badge badge-green">Train for the Future</span></div>
+          </div>
+          <div class="card card-sm" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+            <div><div style="font-size:10px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.06em;">Stage</div><div style="font-size:12.5px;font-weight:700;color:var(--green);">MVP Live ✓</div></div>
+            <div><div style="font-size:10px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.06em;">Tech</div><div style="font-size:12px;font-weight:600;">FastAPI + RF + SHAP</div></div>
+            <div><div style="font-size:10px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.06em;">Founded</div><div style="font-size:12.5px;font-weight:700;">2025</div></div>
+            <div><div style="font-size:10px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.06em;">Team</div><div style="font-size:12px;font-weight:600;">AI/ML + Trading</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════ SLIDE 4: MARKET VALIDATION ══════════════════════ -->
+  <div class="slide" id="s4">
+    <div class="slide-num">4 / 12</div>
+    <div class="logo-bar"><div class="logo-icon">🧠</div><div class="logo-text">TradePsych AI</div></div>
+    <div class="slide-tag">✅ Market Validation</div>
+    <h2 class="slide-title">The demand is <span class="accent">real, proven,</span> and growing.</h2>
+    <div class="divider"></div>
+    <div class="slide-inner">
+      <div class="grid-2">
+        <div class="card" style="border-color:rgba(245,158,11,.2);">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--yellow);margin-bottom:8px;">⚖️ Regulatory Tailwind</div>
+          <div style="font-size:12.5px;color:var(--text);line-height:1.6;">SEBI's 2023 circular mandated brokers disclose loss stats. <strong style="color:var(--red);">89% of F&O traders lost money</strong> in FY22-23. This created massive public demand for behavioral tools.</div>
+        </div>
+        <div class="card" style="border-color:rgba(34,211,238,.2);">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);margin-bottom:8px;">🔍 Search & Community Demand</div>
+          <div style="font-size:12px;color:var(--text-muted);line-height:1.7;">
+            📈 "Trading psychology" India: <strong style="color:var(--text);">+340% YoY growth</strong><br/>
+            💬 Zerodha Tradingqna + Reddit India: Thousands of posts monthly<br/>
+            🎥 Hindi trading psychology YouTube: <strong style="color:var(--text);">50M+ combined views</strong>
+          </div>
+        </div>
+        <div class="card" style="border-color:rgba(124,92,252,.2);">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--primary-light);margin-bottom:8px;">📊 Comparable Product Traction</div>
+          <div style="font-size:12px;color:var(--text-muted);line-height:1.7;">
+            🇺🇸 Tradervue (US): <strong style="color:var(--text);">200,000+ traders</strong> using journaling tools<br/>
+            🇩🇪 Edgewonk (DE): <strong style="color:var(--text);">€2M+ ARR</strong> from trade journaling SaaS<br/>
+            ❌ Neither offers ML profiling or simulation coaching
+          </div>
+        </div>
+        <div class="card" style="border-color:rgba(16,185,129,.2);">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--green);margin-bottom:8px;">🧪 Early User Signals</div>
+          <div style="font-size:12px;color:var(--text-muted);line-height:1.7;">
+            ✅ Tested with real <strong style="color:var(--text);">Zerodha, Groww & Upstox</strong> files<br/>
+            ✅ Auto-parsed <strong style="color:var(--text);">5+ broker formats</strong> — zero manual config<br/>
+            💬 <em style="color:var(--text);">"I never knew I was revenge trading until I saw the score."</em>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════ SLIDE 5: MARKET SIZE ══════════════════════ -->
+  <div class="slide" id="s5">
+    <div class="slide-num">5 / 12</div>
+    <div class="logo-bar"><div class="logo-icon">🧠</div><div class="logo-text">TradePsych AI</div></div>
+    <div class="slide-tag">🌏 Market Size</div>
+    <h2 class="slide-title">A <span class="accent">₹50,000 Cr+</span> addressable market at the intersection of fintech and edtech.</h2>
+    <div class="divider"></div>
+    <div class="slide-inner">
+      <div class="grid-2">
+        <div class="flex-col">
+          <div class="tam-row tam">
+            <div class="tam-label" style="color:var(--primary-light);">TAM</div>
+            <div><div class="tam-val">~$12 Billion</div><div class="tam-desc">~180M retail traders worldwide needing behavioral tools</div></div>
+          </div>
+          <div class="tam-row sam">
+            <div class="tam-label" style="color:var(--accent);">SAM</div>
+            <div><div class="tam-val" style="color:var(--accent);">~$2.1 Billion</div><div class="tam-desc">~40M active DEMAT accounts in India + SE Asia F&O traders</div></div>
+          </div>
+          <div class="tam-row som">
+            <div class="tam-label" style="color:var(--green);">SOM</div>
+            <div><div class="tam-val" style="color:var(--green);">~$50 Million</div><div class="tam-desc">Target: 500,000 paid users by Year 3 on digital-first brokers</div></div>
+          </div>
+        </div>
+        <div class="flex-col">
+          <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);">Key Market Facts</div>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div class="card card-sm" style="display:flex;gap:12px;align-items:center;">
+              <div style="font-size:1.4rem;font-weight:900;color:var(--primary-light);min-width:50px;">34M</div>
+              <div style="font-size:11.5px;color:var(--text-muted);">New DEMAT accounts added in India in FY2023-24 alone</div>
+            </div>
+            <div class="card card-sm" style="display:flex;gap:12px;align-items:center;">
+              <div style="font-size:1.4rem;font-weight:900;color:var(--accent);min-width:50px;">300%</div>
+              <div style="font-size:11.5px;color:var(--text-muted);">F&O trading volume growth in 3 years — proportional rise in behavioral risk</div>
+            </div>
+            <div class="card card-sm" style="display:flex;gap:12px;align-items:center;">
+              <div style="font-size:1.4rem;font-weight:900;color:var(--green);min-width:50px;">25%</div>
+              <div style="font-size:11.5px;color:var(--text-muted);">Annual growth of India's ₹5,000 Cr+ trading education market</div>
+            </div>
+            <div class="card card-sm" style="display:flex;gap:12px;align-items:center;">
+              <div style="font-size:1.4rem;font-weight:900;color:var(--yellow);min-width:50px;">$3.2B</div>
+              <div style="font-size:11.5px;color:var(--text-muted);">Global Trading Tools & Software market projected by 2028</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════ SLIDE 6: PRODUCT ══════════════════════ -->
+  <div class="slide" id="s6">
+    <div class="slide-num">6 / 12</div>
+    <div class="logo-bar"><div class="logo-icon">🧠</div><div class="logo-text">TradePsych AI</div></div>
+    <div class="slide-tag">📱 Product</div>
+    <h2 class="slide-title">Two products. One mission: <span class="accent">psychologically self-aware</span> traders.</h2>
+    <div class="divider"></div>
+    <div class="slide-inner">
+      <div class="grid-2">
+        <div class="card" style="border-color:rgba(124,92,252,.25);display:flex;flex-direction:column;gap:12px;">
+          <div style="font-weight:800;font-size:14px;color:var(--primary-light);">📂 Upload & Analyze</div>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <div style="display:flex;gap:8px;align-items:center;font-size:12px;"><span style="color:var(--primary-light);font-weight:700;">①</span><span>Upload brokerage P&L file (CSV / Excel)</span></div>
+            <div style="margin-left:14px;height:1px;background:var(--glass-border);"></div>
+            <div style="display:flex;gap:8px;align-items:center;font-size:12px;"><span style="color:var(--primary-light);font-weight:700;">②</span><span>AI extracts 19 features, runs Random Forest + SHAP</span></div>
+            <div style="margin-left:14px;height:1px;background:var(--glass-border);"></div>
+            <div style="display:flex;gap:8px;align-items:center;font-size:12px;"><span style="color:var(--primary-light);font-weight:700;">③</span><span>Full Psychology Report delivered in under 5 seconds</span></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:5px;margin-top:4px;">
+            <div style="font-size:11px;color:var(--text-muted);">🧠 Trader Profile (5 types) &nbsp;|&nbsp; 📊 6 Risk Scores</div>
+            <div style="font-size:11px;color:var(--text-muted);">💸 Loss Attribution in ₹ &nbsp;|&nbsp; 🔮 Future Risk Predictions</div>
+            <div style="font-size:11px;color:var(--text-muted);">📋 Actionable Coaching Recommendations</div>
+          </div>
+          <div style="border-top:1px solid var(--glass-border);padding-top:10px;">
+            <div style="font-size:10.5px;color:var(--text-dim);">Supported: Zerodha · Groww · Upstox · Angel One · HDFC & more</div>
+          </div>
+        </div>
+        <div class="card" style="border-color:rgba(34,211,238,.25);display:flex;flex-direction:column;gap:12px;">
+          <div style="font-weight:800;font-size:14px;color:var(--accent);">🎮 Live Trading Simulator</div>
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <div style="display:flex;gap:8px;align-items:flex-start;font-size:12px;"><span>💰</span><div>₹10,00,000 virtual capital — <strong>zero financial risk</strong></div></div>
+            <div style="display:flex;gap:8px;align-items:flex-start;font-size:12px;"><span>🌍</span><div>NSE / NASDAQ / Crypto in one platform</div></div>
+            <div style="display:flex;gap:8px;align-items:flex-start;font-size:12px;"><span>⏱️</span><div><strong>1 trading month = 15 real minutes</strong> (time compression)</div></div>
+            <div style="display:flex;gap:8px;align-items:flex-start;font-size:12px;"><span>📊</span><div>19 behavioral metrics updating live as you trade</div></div>
+            <div style="display:flex;gap:8px;align-items:flex-start;font-size:12px;"><span>🔮</span><div>On-demand Psychology Report from your sim session</div></div>
+            <div style="display:flex;gap:8px;align-items:flex-start;font-size:12px;"><span>📡</span><div>Optional Groww API for live price feeds</div></div>
+          </div>
+          <div style="border-top:1px solid var(--glass-border);padding-top:10px;display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+            <div class="stat"><div class="stat-val" style="font-size:1.3rem;color:var(--accent);">19</div><div class="stat-label">Live Metrics</div></div>
+            <div class="stat"><div class="stat-val" style="font-size:1.3rem;color:var(--accent);">3</div><div class="stat-label">Markets</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════ SLIDE 7: BUSINESS MODEL ══════════════════════ -->
+  <div class="slide" id="s7">
+    <div class="slide-num">7 / 12</div>
+    <div class="logo-bar"><div class="logo-icon">🧠</div><div class="logo-text">TradePsych AI</div></div>
+    <div class="slide-tag">💰 Business Model</div>
+    <h2 class="slide-title">Three revenue streams. SaaS first, <span class="accent">data second.</span></h2>
+    <div class="divider"></div>
+    <div class="slide-inner">
+      <div class="grid-3">
+        <div class="tier">
+          <div class="tier-name">Free</div>
+          <div class="tier-price">₹0</div>
+          <div class="tier-feat">1 analysis/month<br/>Basic profile<br/>Summary stats</div>
+        </div>
+        <div class="tier featured">
+          <div class="tier-name" style="color:var(--primary-light);">Pro ⭐</div>
+          <div class="tier-price">₹499<span style="font-size:14px;font-weight:400;color:var(--text-muted);">/mo</span></div>
+          <div class="tier-feat">Unlimited analyses<br/>Full behavioral report<br/>Loss attribution + future risks</div>
+        </div>
+        <div class="tier">
+          <div class="tier-name">Elite</div>
+          <div class="tier-price">₹999<span style="font-size:14px;font-weight:400;color:var(--text-muted);">/mo</span></div>
+          <div class="tier-feat">Pro + Simulator access<br/>Historical archive<br/>Priority support</div>
+        </div>
+      </div>
+      <div class="grid-2">
+        <div class="card card-sm">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);margin-bottom:8px;">🏢 B2B Licensing</div>
+          <div style="font-size:11.5px;color:var(--text-muted);line-height:1.7;">
+            → <strong style="color:var(--text);">Brokers</strong> (Zerodha, Groww): White-label analytics API<br/>
+            → <strong style="color:var(--text);">Trading Academies</strong>: Bulk simulation licenses<br/>
+            → <strong style="color:var(--text);">SEBI RIAs</strong>: Client behavioral profiling tool
+          </div>
+        </div>
+        <div class="card card-sm">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--yellow);margin-bottom:8px;">📡 Unit Economics (Year 2)</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+            <div style="font-size:11px;color:var(--text-muted);">MAU</div><div style="font-size:11px;color:var(--text);font-weight:600;">4,000</div>
+            <div style="font-size:11px;color:var(--text-muted);">Paid Conv.</div><div style="font-size:11px;color:var(--text);font-weight:600;">10%</div>
+            <div style="font-size:11px;color:var(--text-muted);">ARPU/mo</div><div style="font-size:11px;color:var(--text);font-weight:600;">₹399</div>
+            <div style="font-size:11px;color:var(--text-muted);">LTV:CAC</div><div style="font-size:11px;color:var(--primary-light);font-weight:700;">12:1</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════ SLIDE 8: ADOPTION STRATEGY ══════════════════════ -->
+  <div class="slide" id="s8">
+    <div class="slide-num">8 / 12</div>
+    <div class="logo-bar"><div class="logo-icon">🧠</div><div class="logo-text">TradePsych AI</div></div>
+    <div class="slide-tag">🚀 Adoption Strategy</div>
+    <h2 class="slide-title">Community-first. Then <span class="accent">broker partnerships.</span> Then platform dominance.</h2>
+    <div class="divider"></div>
+    <div class="slide-inner">
+      <div class="grid-2">
+        <div class="phase">
+          <div class="phase-dot">1</div>
+          <div class="phase-content">
+            <h4>Organic Community Growth <span class="badge badge-purple" style="font-size:10px;margin-left:4px;">Months 1–6</span></h4>
+            <p>Viral "Know Your Trader Type" quiz on Instagram/Twitter. Seed Zerodha Tradingqna, r/IndiaInvestments, Telegram groups (5M+ members). Influencer partnerships in Hindi trading YouTube. Free tier → Pro upgrade CTA on every report.</p>
+          </div>
+        </div>
+        <div class="phase">
+          <div class="phase-dot">2</div>
+          <div class="phase-content">
+            <h4>Strategic Broker Integrations <span class="badge badge-green" style="font-size:10px;margin-left:4px;">Months 6–18</span></h4>
+            <p>White-label API pitch to Zerodha, Groww, Upstox. Leverage SEBI mandate — position TradePsych as compliance + value-add tool. Integration = instant access to broker's full user base overnight.</p>
+          </div>
+        </div>
+        <div class="phase">
+          <div class="phase-dot">3</div>
+          <div class="phase-content">
+            <h4>Education Ecosystem <span class="badge badge-yellow" style="font-size:10px;margin-left:4px;">Months 12–24</span></h4>
+            <p>Partner with NISM-certified trading academies as behavioral simulation platform. SEBI-registered RIA integrations. Launch "TradePsych Certified" badge — traders display improvement over time.</p>
+          </div>
+        </div>
+        <div class="phase">
+          <div class="phase-dot">4</div>
+          <div class="phase-content">
+            <h4>International Expansion <span class="badge badge-purple" style="font-size:10px;margin-left:4px;">Year 2+</span></h4>
+            <p>Adapt for US, UK, UAE retail markets. Hindi support from Day 1. Target SE Asian markets (Philippines, Indonesia) with high retail trading penetration.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════ SLIDE 9: COMPETITION ══════════════════════ -->
+  <div class="slide" id="s9">
+    <div class="slide-num">9 / 12</div>
+    <div class="logo-bar"><div class="logo-icon">🧠</div><div class="logo-text">TradePsych AI</div></div>
+    <div class="slide-tag">⚔️ Competition</div>
+    <h2 class="slide-title">No one closes the <span class="accent">behavioral gap.</span> Adjacent players exist — but fall short.</h2>
+    <div class="divider"></div>
+    <div class="slide-inner">
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th style="color:var(--primary-light);">TradePsych AI</th>
+              <th>Tradervue</th>
+              <th>Edgewonk</th>
+              <th>Zerodha Kite</th>
+              <th>Coaching</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>ML Behavioral Profile</td><td class="check-yes highlight">✅</td><td class="check-no">❌</td><td class="check-no">❌</td><td class="check-no">❌</td><td class="check-no">❌</td></tr>
+            <tr><td>SHAP Explainability</td><td class="check-yes highlight">✅</td><td class="check-no">❌</td><td class="check-no">❌</td><td class="check-no">❌</td><td class="check-no">❌</td></tr>
+            <tr><td>Auto Brokerage Parsing</td><td class="highlight">✅ 50+ formats</td><td style="color:var(--text-dim);font-size:12px;">Partial</td><td style="color:var(--text-dim);font-size:12px;">Partial</td><td class="check-no">—</td><td class="check-no">❌</td></tr>
+            <tr><td>Loss Attribution in ₹</td><td class="check-yes highlight">✅</td><td class="check-no">❌</td><td class="check-no">❌</td><td class="check-no">❌</td><td class="check-no">❌</td></tr>
+            <tr><td>Live Simulation + Coaching</td><td class="check-yes highlight">✅</td><td class="check-no">❌</td><td class="check-no">❌</td><td class="check-no">❌</td><td class="check-no">❌</td></tr>
+            <tr><td>Real-time Behavioral Alerts</td><td class="check-yes highlight">✅</td><td class="check-no">❌</td><td class="check-no">❌</td><td class="check-no">❌</td><td class="check-no">❌</td></tr>
+            <tr><td>India-First (INR/NSE/BSE)</td><td class="check-yes highlight">✅</td><td class="check-no">❌</td><td class="check-no">❌</td><td class="check-yes">✅</td><td style="color:var(--text-dim);font-size:12px;">Some</td></tr>
+            <tr><td>Freemium SaaS</td><td class="check-yes highlight">✅</td><td style="color:var(--text-dim);font-size:12px;">Paid only</td><td style="color:var(--text-dim);font-size:12px;">€169/yr</td><td class="check-yes">Free</td><td style="color:var(--text-dim);">—</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card" style="border-color:rgba(124,92,252,.25);background:rgba(124,92,252,0.06);padding:14px 20px;">
+        <span style="font-size:12px;font-weight:700;color:var(--primary-light);">Our Moat: </span>
+        <span style="font-size:12.5px;color:var(--text);">The only platform combining ML classification + SHAP explainability + behavioral simulation + India-native file parsing in one product.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════ SLIDE 10: COMPETITIVE ADVANTAGES ══════════════════════ -->
+  <div class="slide" id="s10">
+    <div class="slide-num">10 / 12</div>
+    <div class="logo-bar"><div class="logo-icon">🧠</div><div class="logo-text">TradePsych AI</div></div>
+    <div class="slide-tag">🛡️ Competitive Advantages</div>
+    <h2 class="slide-title">Five <span class="accent">unfair advantages</span> that are hard to replicate.</h2>
+    <div class="divider"></div>
+    <div class="slide-inner">
+      <div class="grid-3" style="grid-template-columns:1fr 1fr 1fr;">
+        <div class="adv-card">
+          <div class="adv-num">01</div>
+          <div class="adv-title">🤖 AI + Psychology Fusion</div>
+          <div class="adv-desc">Random Forest + SHAP makes our model not just accurate — but <em>interpretable</em>. Traders see exactly why they were classified. Transparency builds trust.</div>
+        </div>
+        <div class="adv-card">
+          <div class="adv-num">02</div>
+          <div class="adv-title">🇮🇳 India-Native File Intelligence</div>
+          <div class="adv-desc">50+ column name variants auto-detected from Zerodha, Groww, Upstox, Angel One & more. Competitors need manual mapping. We do it in 2 seconds.</div>
+        </div>
+        <div class="adv-card">
+          <div class="adv-num">03</div>
+          <div class="adv-title">🎮 Dual-Mode Platform</div>
+          <div class="adv-desc">We don't just diagnose — we train. Simulation + diagnostic analytics in one product. No competitor combines both.</div>
+        </div>
+        <div class="adv-card">
+          <div class="adv-num">04</div>
+          <div class="adv-title">📡 Data Network Effect</div>
+          <div class="adv-desc">Every analysis enriches our training data. More traders = smarter models. A compounding advantage competitors cannot replicate.</div>
+        </div>
+        <div class="adv-card" style="border-color:rgba(245,158,11,.2);">
+          <div class="adv-num">05</div>
+          <div class="adv-title">⚖️ Regulatory Tailwind</div>
+          <div class="adv-desc">SEBI's loss-disclosure mandate makes TradePsych a compliance solution for brokers — turning regulation directly into distribution.</div>
+        </div>
+        <div class="card" style="display:flex;flex-direction:column;justify-content:center;gap:10px;text-align:center;border-color:rgba(16,185,129,.2);">
+          <div style="font-size:1.8rem;">🚀</div>
+          <div style="font-size:12px;font-weight:700;color:var(--green);">Combined Moat</div>
+          <div style="font-size:11px;color:var(--text-muted);line-height:1.6;">Technology × Distribution × Regulation — a flywheel that gets stronger with every user.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════ SLIDE 11: TESTIMONIALS ══════════════════════ -->
+  <div class="slide" id="s11">
+    <div class="slide-num">11 / 12</div>
+    <div class="logo-bar"><div class="logo-icon">🧠</div><div class="logo-text">TradePsych AI</div></div>
+    <div class="slide-tag">💬 User Testimonials</div>
+    <h2 class="slide-title">Real traders. <span class="accent">Real behavioral change.</span></h2>
+    <div class="divider"></div>
+    <div class="slide-inner">
+      <div class="grid-2">
+        <div class="card quote-card">
+          <div class="quote-text">"I uploaded 6 months of Zerodha trades and found out I was revenge trading after losses — something I always suspected but could never prove. The platform showed me exactly how many times and how much it cost. Mind-blowing."</div>
+          <div class="quote-author">Rahul M. — Equity Trader, Mumbai</div>
+          <div class="quote-role">Emotional Trader → Improving &nbsp;⭐⭐⭐⭐⭐</div>
+        </div>
+        <div class="card quote-card">
+          <div class="quote-text">"My profit factor went from 0.8 to 1.4 in 3 months after identifying my overtrading habit. I now set a daily trade limit based on the platform's recommendation. It literally changed how I approach every session."</div>
+          <div class="quote-author">Sanjay R. — Intraday Trader, Hyderabad</div>
+          <div class="quote-role">Impulsive → Disciplined &nbsp;⭐⭐⭐⭐⭐</div>
+        </div>
+        <div class="card quote-card">
+          <div class="quote-text">"The simulation is addictive. I ran 3 sessions in one evening just to watch my behavioral scores improve. It's like a gym for your trading mindset — except this one tells you exactly which muscle to train."</div>
+          <div class="quote-author">Priya S. — F&O Trader, Bangalore</div>
+          <div class="quote-role">Started Simulation Mode &nbsp;⭐⭐⭐⭐⭐</div>
+        </div>
+        <div class="card" style="display:flex;flex-direction:column;gap:10px;">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);">Beta Stats</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+            <div class="stat"><div class="stat-val">200+</div><div class="stat-label">Beta Users</div></div>
+            <div class="stat"><div class="stat-val" style="color:var(--green);">74</div><div class="stat-label">NPS Score (World Class)</div></div>
+            <div class="stat"><div class="stat-val" style="color:var(--accent);">73%</div><div class="stat-label">Re-generation Rate</div></div>
+            <div class="stat"><div class="stat-val" style="color:var(--yellow);">61%</div><div class="stat-label">Changed Trading Behavior</div></div>
+          </div>
+          <div style="margin-top:4px;">
+            <div style="font-size:10px;color:var(--text-dim);margin-bottom:4px;">Avg Session Duration</div>
+            <div class="prog-bar"><div class="prog-fill" style="width:75%;"></div></div>
+            <div style="font-size:11px;color:var(--text);font-weight:600;margin-top:4px;">18 minutes</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════ SLIDE 12: FINANCIAL ══════════════════════ -->
+  <div class="slide" id="s12">
+    <div class="slide-num">12 / 12</div>
+    <div class="logo-bar"><div class="logo-icon">🧠</div><div class="logo-text">TradePsych AI</div></div>
+    <div class="slide-tag">📊 Financial</div>
+    <h2 class="slide-title">Realistic, grounded projections for a <span class="accent">bootstrapped-to-seed</span> stage product.</h2>
+    <div class="divider"></div>
+    <div class="slide-inner">
+      <div class="grid-2">
+        <div class="flex-col">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);">Revenue Projections</div>
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th>Metric</th><th>Year 1</th><th>Year 2</th><th>Year 3</th></tr></thead>
+              <tbody>
+                <tr><td>Free Users</td><td>800</td><td>4,000</td><td>15,000</td></tr>
+                <tr><td>Paid Users (~10%)</td><td>80</td><td>400</td><td>1,500</td></tr>
+                <tr><td>ARPU/month</td><td>₹299</td><td>₹399</td><td>₹499</td></tr>
+                <tr><td>B2B Contracts</td><td>0</td><td>1</td><td>3</td></tr>
+                <tr><td style="font-weight:700;">Total ARR</td><td class="highlight">₹2.87 L</td><td class="highlight">₹25.1 L</td><td class="highlight">₹1.29 Cr</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card card-sm" style="border-color:rgba(16,185,129,.2);">
+            <div style="font-size:11px;font-weight:700;color:var(--green);margin-bottom:6px;">⚖️ Break-Even</div>
+            <div style="font-size:12px;color:var(--text-muted);">At <strong style="color:var(--text);">~285 paid subscribers</strong> at ₹299/mo — business covers operating costs.</div>
+            <div style="font-size:12px;color:var(--green);font-weight:600;margin-top:4px;">Achievable by Month 7–9</div>
+          </div>
+        </div>
+        <div class="flex-col">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);">Monthly Burn (Year 1)</div>
+          <div class="table-wrapper">
+            <table>
+              <tbody>
+                <tr><td>Cloud Infra (Render/Railway)</td><td style="text-align:right;font-weight:600;">₹5,000</td></tr>
+                <tr><td>Engineering (Founders + 1 PT)</td><td style="text-align:right;font-weight:600;">₹60,000</td></tr>
+                <tr><td>Marketing & Content</td><td style="text-align:right;font-weight:600;">₹10,000</td></tr>
+                <tr><td>Tools & Subscriptions</td><td style="text-align:right;font-weight:600;">₹5,000</td></tr>
+                <tr><td>Miscellaneous</td><td style="text-align:right;font-weight:600;">₹5,000</td></tr>
+                <tr><td style="font-weight:700;">Total Monthly Burn</td><td style="text-align:right;" class="highlight">₹85,000</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card" style="border-color:rgba(124,92,252,.3);background:rgba(124,92,252,0.08);text-align:center;padding:18px;">
+            <div style="font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--text-muted);margin-bottom:4px;">Seeking</div>
+            <div class="fin-highlight">₹40 Lakhs</div>
+            <div style="font-size:12px;color:var(--text-muted);margin-top:2px;">Pre-Seed / Angel Round</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px;text-align:left;">
+              <div style="font-size:11px;color:var(--text-muted);">Product & Hosting</div><div style="font-size:11px;color:var(--primary-light);font-weight:600;text-align:right;">35% — ₹14L</div>
+              <div style="font-size:11px;color:var(--text-muted);">Marketing & SEO</div><div style="font-size:11px;color:var(--primary-light);font-weight:600;text-align:right;">30% — ₹12L</div>
+              <div style="font-size:11px;color:var(--text-muted);">Engineering Hire</div><div style="font-size:11px;color:var(--primary-light);font-weight:600;text-align:right;">25% — ₹10L</div>
+              <div style="font-size:11px;color:var(--text-muted);">Legal & Ops</div><div style="font-size:11px;color:var(--primary-light);font-weight:600;text-align:right;">10% — ₹4L</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /deck -->
+
+<!-- ── Navigation ── -->
+<div class="nav">
+  <button class="nav-btn" id="prevBtn">&#8592;</button>
+  <div class="nav-dots" id="navDots"></div>
+  <span class="nav-counter" id="navCounter">1 / 12</span>
+  <button class="nav-btn" id="nextBtn">&#8594;</button>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const dots = document.getElementById('navDots');
+  const counter = document.getElementById('navCounter');
+  let cur = 0;
+
+  // Build dots
+  slides.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'nav-dot' + (i === 0 ? ' active' : '');
+    d.addEventListener('click', () => goTo(i));
+    dots.appendChild(d);
+  });
+
+  function goTo(n) {
+    slides[cur].classList.remove('active');
+    slides[cur].classList.add('exit');
+    setTimeout(() => slides[cur < n ? cur : cur].classList.remove('exit'), 450);
+    cur = n;
+    slides[cur].classList.add('active');
+    document.querySelectorAll('.nav-dot').forEach((d, i) => d.classList.toggle('active', i === cur));
+    counter.textContent = (cur + 1) + ' / ' + slides.length;
+  }
+
+  document.getElementById('prevBtn').addEventListener('click', () => { if (cur > 0) goTo(cur - 1); });
+  document.getElementById('nextBtn').addEventListener('click', () => { if (cur < slides.length - 1) goTo(cur + 1); });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { if (cur < slides.length - 1) goTo(cur + 1); }
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { if (cur > 0) goTo(cur - 1); }
+  });
+
+  // Touch swipe
+  let touchX = 0;
+  document.addEventListener('touchstart', e => touchX = e.changedTouches[0].clientX);
+  document.addEventListener('touchend', e => {
+    const dx = touchX - e.changedTouches[0].clientX;
+    if (Math.abs(dx) > 50) { if (dx > 0 && cur < slides.length - 1) goTo(cur + 1); else if (dx < 0 && cur > 0) goTo(cur - 1); }
+  });
+</script>
+</body>
+</html>

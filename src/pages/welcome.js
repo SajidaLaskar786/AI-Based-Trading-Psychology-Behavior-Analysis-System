@@ -19,6 +19,7 @@ export function render() {
         <div class="nav-actions">
           <button class="btn-login" id="navLoginBtn">Log In</button>
           <button class="btn-get-started" id="navGetStartedBtn">Get Started</button>
+          <button class="btn-primary" id="navSimulationBtn" style="margin-left: 10px;">Live Simulation</button>
         </div>
       </nav>
 
@@ -43,6 +44,9 @@ export function render() {
           <div class="hero-actions">
             <button class="btn-primary" id="heroGetStarted">
               🚀 Get Started
+            </button>
+            <button class="btn-outline" id="heroSimulation" style="margin-left: 15px; border: 1px solid var(--primary-light); color: var(--primary-light); background: transparent; padding: 0.8rem 1.5rem; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">
+              📈 Live Simulation
             </button>
           </div>
         </div>
@@ -125,6 +129,14 @@ export function mount() {
 
   document.getElementById('heroGetStarted')?.addEventListener('click', () => {
     window.location.hash = '#/signup';
+  });
+
+  document.getElementById('navSimulationBtn')?.addEventListener('click', () => {
+    window.location.hash = '#/simulation';
+  });
+
+  document.getElementById('heroSimulation')?.addEventListener('click', () => {
+    window.location.hash = '#/simulation';
   });
 
 

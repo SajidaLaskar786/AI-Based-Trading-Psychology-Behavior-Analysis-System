@@ -1,0 +1,32 @@
+{
+  "123": {
+    "username": "123",
+    "balance": 999149.4999999999,
+    "joinedAt": "2026-06-25T05:30:26.479Z"
+  },
+  "inarat": {
+    "username": "inarat",
+    "balance": 915860.92,
+    "joinedAt": "2026-06-11T06:27:00.356Z"
+  },
+  "saji": {
+    "username": "saji",
+    "balance": 867408.1000000001,
+    "joinedAt": "2026-06-11T06:29:52.874Z"
+  },
+  "ijjj": {
+    "username": "ijjj",
+    "balance": 998358.87,
+    "joinedAt": "2026-06-11T06:35:07.388Z"
+  },
+  "testuser": {
+    "username": "testuser",
+    "balance": 1000000,
+    "joinedAt": "2026-06-11T20:41:09.246Z"
+  },
+  "ina": {
+    "username": "ina",
+    "balance": 1000899.9,
+    "joinedAt": "2026-06-11T20:50:49.298Z"
+  }
+}
